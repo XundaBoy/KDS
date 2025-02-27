@@ -30,7 +30,7 @@ public class Jogo {
     private String console;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado; 
+    private EstadoJogo estado; 
 
     private Float valor; 
 

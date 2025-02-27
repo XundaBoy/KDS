@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import app.entity.Estado;
+import app.entity.EstadoJogo;
 import app.entity.Jogo;
 
 public interface JogoRepository extends JpaRepository<Jogo, Long> {
@@ -13,5 +13,5 @@ public interface JogoRepository extends JpaRepository<Jogo, Long> {
 	
 	public List<Jogo> findByConsole(String console);
 	
-	 public List<Jogo> findByConsoleAndEstado(String console, Estado estado);
+	 public List<Jogo> findByConsoleAndEstado(String console, EstadoJogo estado);
 }

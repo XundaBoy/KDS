@@ -1,6 +1,6 @@
 package app.entity;
 
-public enum Estado {
+public enum EstadoJogo {
 
 	  
 	        NOVO, USADO, RECONDICIONADO;
