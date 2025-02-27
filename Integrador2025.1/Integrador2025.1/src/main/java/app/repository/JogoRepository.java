@@ -1,5 +1,6 @@
 package app.repository;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,8 @@ public interface JogoRepository extends JpaRepository<Jogo, Long> {
 	
 	public List<Jogo> findByNomeContaining(String nome);
 	
-	public List<Jogo> findByConsole(String console);
+	public List<Jogo> findByConsole(Console console);
 	
-	 public List<Jogo> findByConsoleAndEstado(String console, EstadoJogo estado);
+	 
+	 
 }

@@ -26,8 +26,7 @@ public class Jogo {
     @NotBlank(message = "Nome do jogo obrigatório")
     private String nome;
 
-    @NotBlank(message = "Console do jogo obrigatório")
-    private String console;
+    
 
     @Enumerated(EnumType.STRING)
     private EstadoJogo estado; 

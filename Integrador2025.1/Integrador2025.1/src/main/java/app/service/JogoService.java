@@ -1,7 +1,9 @@
 package app.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,8 @@ public class JogoService {
 		return "Jogo salvo com sucesso!";
 	}
 	
-	public String update (Jogo jogo) {
+	public String update (Jogo jogo, Long id) {
+		jogo.setId(id);
 		this.jogoRepository.save(jogo);
 		return "Jogo atualizado com sucesso";
 	}
@@ -32,16 +35,17 @@ public class JogoService {
 	
 	public List<Jogo> findAll(){
 		List<Jogo> lista = new ArrayList<>();
-		
+		lista = this.jogoRepository.findAll();
 		return lista;
+	}
+	
+	public Optional<Jogo> findById(Long id){
+		return this.jogoRepository.findById(id);
 	}
 	
 	public List<Jogo>findByNomeContaining(String nome){
 		return this.jogoRepository.findByNomeContaining(nome);
 	}
 	
-	public List<Jogo>findByConsole(String console)	{
-		return this.jogoRepository.findByConsole(console);
-		
-	}
+	
 }
