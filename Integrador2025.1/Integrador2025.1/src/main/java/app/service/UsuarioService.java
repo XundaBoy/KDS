@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Cidade;
 import app.entity.Usuario;
 import app.repository.UsuarioRepository;
 
@@ -23,6 +24,12 @@ public class UsuarioService {
 			}
 			usuarioRepository.save(usuario);
 			return "Usuario salvo com sucesso!";
+		}
+		
+		public String update (Usuario usuario, Long id) {
+			usuario.setId(id);
+			this.usuarioRepository.save(usuario);
+			return "Usuario atualizado com sucesso";
 		}
 		
 		public String delete (long id) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Cidade;
 import app.entity.Usuario;
 import app.service.UsuarioService;
 
@@ -34,10 +35,24 @@ public class UsuarioController {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);// TODO: handle exception
 		}
+		}
+	
+	@PostMapping("/update")
+	public ResponseEntity<String> update (@RequestBody Usuario usuario, @PathVariable Long id){
+		
+		try {
+			String mensagem = this.usuarioService.update(usuario, id);
+			return new ResponseEntity<>(mensagem, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
 	}
 	
+	
+	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Usuario>> getAllUsuarios(){
+	public ResponseEntity<List<Usuario>> findAll(){
 		List<Usuario> usuarios = usuarioService.findAll();
 		  return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
@@ -61,7 +76,7 @@ try {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
 
 		}

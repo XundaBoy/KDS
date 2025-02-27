@@ -10,6 +10,7 @@ import app.entity.Jogo;
 
 public interface JogoRepository extends JpaRepository<Jogo, Long> {
 	
+	
 	public List<Jogo> findByNomeContaining(String nome);
 	
 	public List<Jogo> findByConsole(Console console);
