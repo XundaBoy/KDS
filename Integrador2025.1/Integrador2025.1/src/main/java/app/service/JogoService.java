@@ -20,6 +20,11 @@ public class JogoService {
 		return "Jogo salvo com sucesso!";
 	}
 	
+	public String update (Jogo jogo) {
+		this.jogoRepository.save(jogo);
+		return "Jogo atualizado com sucesso";
+	}
+	
 	public String delete (Long id) {
 		jogoRepository.deleteById(id);
 		return"Jogo deletado com sucesso!";
