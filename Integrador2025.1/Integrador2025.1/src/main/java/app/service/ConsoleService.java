@@ -3,10 +3,11 @@ package app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import app.entity.Console;
 import app.repository.ConsoleRepository;
-
+@Service
 public class ConsoleService {
 
 	@Autowired
@@ -14,13 +15,13 @@ public class ConsoleService {
 	
 	public String save(Console console) {
 		this.consoleRepository.save(console);
-		return "Jogo salvo com sucesso";
+		return "Console salvo com sucesso";
 	}
 	
 	public String update(Console console, Long id) {
 		console.setId(id);
 		this.consoleRepository.save(console);
-		return "Jogo atualizado com sucesso";
+		return "Console atualizado com sucesso";
 	}
 	
 	public List<Console> findAll(){

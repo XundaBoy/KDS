@@ -33,11 +33,13 @@ public class Jogo {
 
     private Float valor; 
 
-    private boolean venda;
-    private boolean troca;
+    
 
     @ManyToOne
     private Usuario usuario;
+    
+    @ManyToOne
+    private Console console;
 
    
     

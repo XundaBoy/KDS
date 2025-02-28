@@ -24,7 +24,7 @@ public class ConsoleController {
 	
 	@Autowired
 	private ConsoleService consoleService;
-	//testeeeeeeee
+	
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Console console){
 		try {
@@ -70,7 +70,7 @@ public class ConsoleController {
 	}
 		
 		
-	@DeleteMapping("/delete")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id){
 		try {
 			String mensagem = consoleService.delete(id);

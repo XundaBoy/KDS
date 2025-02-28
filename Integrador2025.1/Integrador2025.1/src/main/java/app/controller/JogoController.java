@@ -48,8 +48,8 @@ public class JogoController {
 			}
 		}
 		
-		@DeleteMapping("/delete")
-		public ResponseEntity<String> delete (@RequestParam Long id){
+		@DeleteMapping("/delete/{id}")
+		public ResponseEntity<String> delete (@PathVariable Long id){
 			try {
 				String mensagem = this.jogoService.delete(id);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
