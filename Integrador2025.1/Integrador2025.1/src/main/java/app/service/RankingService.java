@@ -27,7 +27,7 @@ public class RankingService {
 	
 	public String delete(Long id) {
 		rankingRepository.deleteById(id);
-		return"Cidade deletada com sucesso!";
+		return"Raking deletado com sucesso!";
 	}
 	
 	public List<Ranking> findAll(){

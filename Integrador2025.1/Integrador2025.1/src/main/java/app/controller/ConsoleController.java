@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Cidade;
 import app.entity.Console;
 import app.service.ConsoleService;
 
@@ -82,9 +84,23 @@ public class ConsoleController {
 	
 	}
 	
+	@GetMapping("/findByNomeStartingWith")
+	public ResponseEntity<List<Console>> findByNomeStartingWith(@RequestParam String nome){
+		
+		try {
+			List<Console> consoles = this.consoleService.findByNomeStartingWith(nome);
+			
+			if(consoles.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(consoles, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
 	
 	
 	
-	
+	}
 	
 }

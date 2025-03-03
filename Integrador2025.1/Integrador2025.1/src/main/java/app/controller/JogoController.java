@@ -92,4 +92,14 @@ public class JogoController {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
 		}
+		/*@GetMapping("/findByConsole")
+		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam String nome){
+			try {
+				List<Jogo> consoles = jogoService.findByConsole(nome);
+				return new ResponseEntity<>(consoles, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+			}
+		}*/
 }

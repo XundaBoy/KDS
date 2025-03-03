@@ -1,4 +1,4 @@
-package app.service;
+  package app.service;
 
 
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Console;
 import app.entity.Jogo;
 import app.repository.JogoRepository;
 
@@ -47,5 +48,9 @@ public class JogoService {
 		return this.jogoRepository.findByNomeContaining(nome);
 	}
 	
+	/*public List<Jogo>findByConsole(Console console){
+		return this.jogoRepository.findByConsole(console);
+				
+	}*/
 	
 }
