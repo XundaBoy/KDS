@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,21 +15,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Venda {
+public class Troca {
 
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @ManyToOne
-	    @JoinColumn(name = "usuario_vendedor_id", nullable = false)
-	    private Usuario usuarioVendedor;
 
 	    @ManyToOne
-	    @JoinColumn(name = "usuario_comprador_id", nullable = false)
-	    private Usuario usuarioComprador;
+	    private Jogo jogoUsuarioX;
 
 	    @ManyToOne
-	    @JoinColumn(name = "jogo_id", nullable = false)
-	    private Jogo jogo;
+	    private Jogo jogoUsuarioY;
+
+	    @ManyToOne
+	    private Usuario usuarioX;
+
+	    @ManyToOne
+	    private Usuario usuarioY;
 }
