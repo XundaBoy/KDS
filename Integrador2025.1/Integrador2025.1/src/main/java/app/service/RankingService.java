@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Cidade;
 import app.entity.Ranking;
 import app.repository.RankingRepository;
 
@@ -42,5 +43,9 @@ public class RankingService {
 	
 	public List<Ranking> findByNomeStartingWith(String nome){
 		return this.rankingRepository.findByNomeStartingWith(nome);
+	}
+	
+	public List<Cidade> findByNomeIgnoreCase(String nome){
+		return this.rankingRepository.findByNomeIgnoreCase(nome);
 	}
 }

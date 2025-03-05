@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.entity.Cidade;
 import app.entity.Console;
 import app.repository.ConsoleRepository;
 @Service
@@ -42,4 +41,10 @@ public class ConsoleService {
 	public List<Console> findByNomeStartingWith(String nome){
 		return this.consoleRepository.findByNomeStartingWith(nome);
 	}
+	
+	public List<Console> findByMarca(String marca){
+		return this.consoleRepository.findByMarca(marca);
+	}
+	
+	
 }

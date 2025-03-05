@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Cidade;
 import app.entity.Console;
 import app.service.ConsoleService;
 
@@ -102,5 +101,19 @@ public class ConsoleController {
 	
 	
 	}
+	
+	@GetMapping("/findByMarca")
+	public ResponseEntity<List<Console>> findByMarca(@PathVariable String marca){
+		try {
+			List<Console> consoles = this.consoleService.findByMarca(marca);
+			return new ResponseEntity<>(consoles, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+	}
+	
+	
 	
 }

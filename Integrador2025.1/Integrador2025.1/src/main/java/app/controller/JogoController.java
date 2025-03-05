@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Console;
+import app.entity.EstadoJogo;
 import app.entity.Jogo;
 import app.service.JogoService;
 
@@ -92,14 +94,25 @@ public class JogoController {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
 		}
-		/*@GetMapping("/findByConsole")
-		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam String nome){
+		@GetMapping("/findByConsole")
+		public ResponseEntity<List<Jogo>> findByConsole(@RequestBody Console console){
 			try {
-				List<Jogo> consoles = jogoService.findByConsole(nome);
+				List<Jogo> consoles = jogoService.findByConsole(console);
 				return new ResponseEntity<>(consoles, HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
 			}
-		}*/
+		}
+		
+		@GetMapping("/findByEstadoNovoOuRecondicionado")
+		public ResponseEntity<List<Jogo>> findByEstadoNovoOuRecondicionado(){
+			try {
+				List<Jogo> consoles = jogoService.findByEstadoNovoOuRecondicionado();
+				return new ResponseEntity<>(consoles, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+			}
+		}
 }

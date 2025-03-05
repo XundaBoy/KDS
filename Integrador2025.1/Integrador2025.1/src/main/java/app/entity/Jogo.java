@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,14 +32,16 @@ public class Jogo {
     @Enumerated(EnumType.STRING)
     private EstadoJogo estado; 
 
+   
     private Float valor; 
 
     
-
     @ManyToOne
+    @NotNull
     private Usuario usuario;
     
     @ManyToOne
+    @NotNull
     private Console console;
 
    
