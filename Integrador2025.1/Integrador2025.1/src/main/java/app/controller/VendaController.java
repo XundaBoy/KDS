@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Console;
+import app.entity.Jogo;
 import app.entity.Venda;
+import app.repository.ConsoleRepository;
+import app.repository.JogoRepository;
 import app.service.VendaService;
 
 @RestController
@@ -23,6 +27,8 @@ public class VendaController {
 
     @Autowired
     private VendaService vendaService;
+    
+   
 
     // Endpoint para realizar a venda
     @PostMapping("/realizar/{jogoId}/{usuarioVendedorId}/{usuarioCompradorId}")
@@ -73,5 +79,27 @@ try {
 		}
 }
   
+	@GetMapping("/findByConsole")
+	public ResponseEntity<List<Venda>> findByJogo_Console(@RequestParam Console console){
+		try {
+			List<Venda> vendas = vendaService.findByJogo_Console(console);
+			return new ResponseEntity<>(vendas,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
+	}
+	
+	@GetMapping("/findByJogo")
+	public ResponseEntity<List<Venda>> findByJogo(@RequestParam Jogo jogo){
+		try {
+			List<Venda> vendas = vendaService.findByJogo(jogo);
+			return new ResponseEntity<>(vendas, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
+	}
+	
     
 }

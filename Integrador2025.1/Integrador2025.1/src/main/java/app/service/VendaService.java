@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Console;
 import app.entity.Jogo;
 import app.entity.Usuario;
 import app.entity.Venda;
@@ -70,5 +71,13 @@ public class VendaService {
 		List<Venda> lista = new ArrayList<>();
 		lista = this.vendaRepository.findAll();
 		return lista;
+	}
+	
+	public List<Venda> findByJogo(Jogo jogo) {
+		return vendaRepository.findByJogo(jogo);
+	}
+	
+	public List<Venda> findByJogo_Console(Console console){
+		return vendaRepository.findByJogo_Console(console);
 	}
 }

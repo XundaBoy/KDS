@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Console;
+import app.entity.EstadoJogo;
 import app.entity.Troca;
 import app.service.TrocaService;
 
@@ -73,5 +75,28 @@ try {
 
 		}
 }
+	
+	@GetMapping("/findByConsole")
+	public ResponseEntity<List<Troca>> findByConsole(@RequestParam Console console){
+		try {
+			List<Troca> trocas = trocaService.findByConsole(console);
+			return new ResponseEntity<>(trocas,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
+	}
+	
+	@GetMapping("/findByEstadoJogo")
+	public ResponseEntity<List<Troca>> findByEstadoJogo(@RequestParam EstadoJogo estado){
+		try {
+			List<Troca> trocas = trocaService.findByEstadoJogo(estado);
+			return new ResponseEntity<>(trocas, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
+		}
+	}
+	
    
 }
