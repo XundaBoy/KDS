@@ -32,7 +32,7 @@ public class Usuario {
 	@Pattern(regexp = "^(\\S+\\s+\\S+.*)$")
 	private String nome;
 	
-	@NotBlank(message = "O  telefone deve ser preenchido")
+	
 	private String telefone;
 	
 	@CPF(message = "O CPF deve ser valido")
@@ -41,6 +41,8 @@ public class Usuario {
 	
 	@Email(message = "O Email deve ser valido")
 	private String email;
+	
+	private String statusCadastro;
 	
 	@ManyToOne
 	private Cidade cidade;

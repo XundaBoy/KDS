@@ -22,6 +22,11 @@ public class UsuarioService {
 				
 				
 			}
+			 if (usuario.getTelefone() == null || usuario.getTelefone().trim().isEmpty()) {
+		            usuario.setStatusCadastro("INCOMPLETO"); 
+		        } else {
+		            usuario.setStatusCadastro("COMPLETO"); 
+		        }
 			usuarioRepository.save(usuario);
 			return "Usuario salvo com sucesso!";
 		}
