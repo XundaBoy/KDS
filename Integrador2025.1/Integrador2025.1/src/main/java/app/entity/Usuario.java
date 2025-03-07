@@ -2,13 +2,18 @@ package app.entity;
 
 
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -44,10 +49,31 @@ public class Usuario {
 	
 	private String statusCadastro;
 	
+	@JsonIgnoreProperties("usuarios")
 	@ManyToOne
 	private Cidade cidade;
 	
+	@JsonIgnoreProperties("usuarios")
 	@ManyToOne
 	private Ranking ranking;
 	
+	@JsonIgnoreProperties("usuario")
+	@OneToMany(mappedBy = "usuario")
+	private List<Jogo> jogos;
+	
+	@JsonIgnoreProperties("usuarioX")
+	@OneToMany(mappedBy = "usuario")
+	private List<Troca> trocasUsuarioX;
+	
+	@JsonIgnoreProperties("usuarioY")
+	@OneToMany(mappedBy = "usuario")
+	private List<Troca> trocasUsuarioY;
+	
+	@JsonIgnoreProperties("usuarioVendedor")
+	@OneToMany(mappedBy = "usuarioVendedor")
+	private List<Venda> vendasUsuario;
+	
+	@JsonIgnoreProperties("usuarioComprador")
+	@OneToMany(mappedBy = "usuarioComprador")
+	private List<Venda> comprasUsuario;
 }

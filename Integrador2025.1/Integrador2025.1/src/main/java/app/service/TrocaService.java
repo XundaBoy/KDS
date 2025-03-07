@@ -38,8 +38,8 @@ public class TrocaService {
 
         // Criando a troca
         Troca troca = new Troca();
-        troca.setJogoUsuarioX(jogoX);
-        troca.setJogoUsuarioY(jogoY);
+        troca.setJogosUsuarioX((List<Jogo>) jogoX);
+        troca.setJogosUsuarioY((List<Jogo>) jogoY);
         troca.setUsuarioX(usuarioX);
         troca.setUsuarioY(usuarioY);
 

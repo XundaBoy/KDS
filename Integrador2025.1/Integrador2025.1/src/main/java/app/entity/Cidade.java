@@ -1,9 +1,14 @@
 package app.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +27,9 @@ public class Cidade {
 	 
 	    @NotBlank(message = "Nome da cidade obrigatório")
 	 	private String nome;
+	    
+	    @JsonIgnoreProperties("cidade")
+	    @OneToMany(mappedBy = "cidade")
+	    private List<Usuario> usuarios;
+	    
 }
