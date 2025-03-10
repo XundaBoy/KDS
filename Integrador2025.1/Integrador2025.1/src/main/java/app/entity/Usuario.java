@@ -62,11 +62,11 @@ public class Usuario {
 	private List<Jogo> jogos;
 	
 	@JsonIgnoreProperties("usuarioX")
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuarioX")
 	private List<Troca> trocasUsuarioX;
 	
 	@JsonIgnoreProperties("usuarioY")
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuarioY")
 	private List<Troca> trocasUsuarioY;
 	
 	@JsonIgnoreProperties("usuarioVendedor")

@@ -65,9 +65,9 @@ public class TrocaService {
 	}
 	
 	public List<Troca> findByConsole(Console console) {
-        return trocaRepository.findByJogoUsuarioXConsoleOrJogoUsuarioYConsole(console, console);
+        return trocaRepository.findByJogosUsuarioXConsoleOrJogosUsuarioYConsole(console, console);
     }
 	public List<Troca> findByEstadoJogo(EstadoJogo estado) {
-        return trocaRepository.findByJogoUsuarioXEstadoOrJogoUsuarioYEstado(estado, estado);
+        return trocaRepository.findByJogosUsuarioXEstadoOrJogosUsuarioYEstado(estado, estado);
     }
 }

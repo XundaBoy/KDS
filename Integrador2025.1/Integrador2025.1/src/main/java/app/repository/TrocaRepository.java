@@ -10,9 +10,9 @@ import app.entity.Troca;
 
 public interface TrocaRepository extends JpaRepository<Troca, Long>{
 
-	public List<Troca> findByJogoUsuarioXConsoleOrJogoUsuarioYConsole(Console console, Console console2);
+	public List<Troca> findByJogosUsuarioXConsoleOrJogosUsuarioYConsole(Console console, Console console2);
 	
-	public List<Troca>findByJogoUsuarioXEstadoOrJogoUsuarioYEstado(EstadoJogo estado, EstadoJogo estado2);
+	public List<Troca>findByJogosUsuarioXEstadoOrJogosUsuarioYEstado(EstadoJogo estado, EstadoJogo estado2);
 	
 	
 }
