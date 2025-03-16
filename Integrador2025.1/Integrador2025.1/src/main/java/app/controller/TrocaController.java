@@ -50,8 +50,8 @@ public class TrocaController {
 		  return new ResponseEntity<>(trocas, HttpStatus.OK);
 	}
 	
-	@GetMapping("/findById")
-	public ResponseEntity<Optional<Troca>> findById(@RequestParam Long id){
+	@GetMapping("/findById/{id}")
+	public ResponseEntity<Optional<Troca>> findById(@PathVariable Long id){
 		try {
 			Optional<Troca> trocas = trocaService.findById(id);
 			return new ResponseEntity<>(trocas, HttpStatus.OK);

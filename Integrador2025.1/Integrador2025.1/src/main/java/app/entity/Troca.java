@@ -2,8 +2,9 @@ package app.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,18 +27,19 @@ public class Troca {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	 
-	    @ManyToMany
+	   
+	    @ManyToMany(cascade = CascadeType.ALL)
 	    private List<Jogo> jogosUsuarioX;
 
-	    @ManyToMany
+	   
+	    @ManyToMany(cascade = CascadeType.ALL)
 	    private List<Jogo> jogosUsuarioY;
 	    
-	    @JsonIgnoreProperties("trocasUsuarioX")
+	    @JsonBackReference
 	    @ManyToOne
 	    private Usuario usuarioX;
 
-	    @JsonIgnoreProperties("trocasUsuarioY")
+	    @JsonBackReference
 	    @ManyToOne
 	    private Usuario usuarioY;
 }

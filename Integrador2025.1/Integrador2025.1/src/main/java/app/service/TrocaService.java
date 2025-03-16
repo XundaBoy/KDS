@@ -38,8 +38,8 @@ public class TrocaService {
 
         // Criando a troca
         Troca troca = new Troca();
-        troca.setJogosUsuarioX((List<Jogo>) jogoX);
-        troca.setJogosUsuarioY((List<Jogo>) jogoY);
+        troca.setJogosUsuarioX(new ArrayList<>(List.of(jogoX)));
+        troca.setJogosUsuarioY(new ArrayList<>(List.of(jogoY)));
         troca.setUsuarioX(usuarioX);
         troca.setUsuarioY(usuarioY);
 
@@ -50,7 +50,7 @@ public class TrocaService {
     }
     public String delete (long id) {
 		trocaRepository.deleteById(id);
-		return "Usuario deletado com sucesso!";
+		return "Troca deletada com sucesso!";
 	}
 	
 	public  Optional<Troca> findById(Long id) {

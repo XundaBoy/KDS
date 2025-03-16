@@ -1,12 +1,11 @@
 package app.entity;
 
-
-
 import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,52 +27,51 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@NotBlank(message = "O nome do  usuario eh obrgatorio")
-	@Pattern(regexp = "^(\\S+\\s+\\S+.*)$")
-	private String nome;
-	
-	
-	private String telefone;
-	
-	@CPF(message = "O CPF deve ser valido")
-	@NotBlank 
-	private String cpf;
-	
-	@Email(message = "O Email deve ser valido")
-	private String email;
-	
-	private String statusCadastro;
-	
-	@JsonIgnoreProperties("usuarios")
-	@ManyToOne
-	private Cidade cidade;
-	
-	@JsonIgnoreProperties("usuarios")
-	@ManyToOne
-	private Ranking ranking;
-	
-	@JsonIgnoreProperties("usuario")
-	@OneToMany(mappedBy = "usuario")
-	private List<Jogo> jogos;
-	
-	@JsonIgnoreProperties("usuarioX")
-	@OneToMany(mappedBy = "usuarioX")
-	private List<Troca> trocasUsuarioX;
-	
-	@JsonIgnoreProperties("usuarioY")
-	@OneToMany(mappedBy = "usuarioY")
-	private List<Troca> trocasUsuarioY;
-	
-	@JsonIgnoreProperties("usuarioVendedor")
-	@OneToMany(mappedBy = "usuarioVendedor")
-	private List<Venda> vendasUsuario;
-	
-	@JsonIgnoreProperties("usuarioComprador")
-	@OneToMany(mappedBy = "usuarioComprador")
-	private List<Venda> comprasUsuario;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @NotBlank(message = "O nome do usuario eh obrgatorio")
+    @Pattern(regexp = "^(\\S+\\s+\\S+.*)$")
+    private String nome;
+
+    private String telefone;
+
+    @CPF(message = "O CPF deve ser valido")
+    @NotBlank
+    private String cpf;
+
+    @Email(message = "O Email deve ser valido")
+    private String email;
+
+    private String statusCadastro;
+
+    @JsonIgnoreProperties("usuarios")
+    @ManyToOne
+    private Cidade cidade;
+
+    @JsonIgnoreProperties("usuarios")
+    @ManyToOne
+    private Ranking ranking;
+
+    @JsonIgnoreProperties("usuario")
+    @OneToMany(mappedBy = "usuario")
+    private List<Jogo> jogos;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "usuarioX")
+    private List<Troca> trocasUsuarioX;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "usuarioY")
+    private List<Troca> trocasUsuarioY;
+
+    @JsonIgnoreProperties("usuarioVendedor")
+    @OneToMany(mappedBy = "usuarioVendedor")
+    private List<Venda> vendasUsuario;
+
+    @JsonIgnoreProperties("usuarioComprador")
+    @OneToMany(mappedBy = "usuarioComprador")
+    private List<Venda> comprasUsuario;
 }
