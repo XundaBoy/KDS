@@ -51,9 +51,11 @@ public class Jogo {
     @NotNull
     private Console console;
     
+    @JsonIgnoreProperties("jogosUsuarioX") 
     @ManyToMany(mappedBy = "jogosUsuarioX")
     private List<Troca> trocasUsuarioX;
     
+    @JsonIgnoreProperties("jogosUsuarioY")
     @ManyToMany(mappedBy = "jogosUsuarioY")
     private List<Troca> trocasUsuarioY;
 
