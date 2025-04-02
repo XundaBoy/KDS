@@ -51,7 +51,7 @@ public class Jogo {
     @NotNull
     private Console console;
     
-    @ManyToMany(mappedBy = "jogosUsuarioX")
+    /*@ManyToMany(mappedBy = "jogosUsuarioX")
     private List<Troca> trocasUsuarioX;
     
     @ManyToMany(mappedBy = "jogosUsuarioY")
@@ -60,7 +60,7 @@ public class Jogo {
     @JsonIgnoreProperties("jogo")
     @OneToMany(mappedBy = "jogo")
     private List<Venda> vendas;
-    
+    */
 }
 
 	

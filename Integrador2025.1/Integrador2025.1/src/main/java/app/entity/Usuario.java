@@ -44,6 +44,8 @@ public class Usuario {
 
     @Email(message = "O Email deve ser valido")
     private String email;
+    @NotBlank 
+    private String senha;
 
     private String statusCadastro;
 
@@ -59,7 +61,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Jogo> jogos;
 
-    @JsonManagedReference
+   /* @JsonManagedReference
     @OneToMany(mappedBy = "usuarioX")
     private List<Troca> trocasUsuarioX;
 
@@ -73,5 +75,5 @@ public class Usuario {
 
     @JsonIgnoreProperties("usuarioComprador")
     @OneToMany(mappedBy = "usuarioComprador")
-    private List<Venda> comprasUsuario;
+    private List<Venda> comprasUsuario;*/
 }
