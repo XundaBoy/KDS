@@ -51,9 +51,15 @@ public class Jogo {
     @NotNull
     private Console console;
     
+//<<<<<<< HEAD
     /*@ManyToMany(mappedBy = "jogosUsuarioX")
+=======
+    @JsonIgnoreProperties("jogosUsuarioX") 
+    @ManyToMany(mappedBy = "jogosUsuarioX")
+>>>>>>> branch 'master' of https://github.com/XundaBoy/KDS.git
     private List<Troca> trocasUsuarioX;
     
+    @JsonIgnoreProperties("jogosUsuarioY")
     @ManyToMany(mappedBy = "jogosUsuarioY")
     private List<Troca> trocasUsuarioY;
 

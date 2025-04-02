@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -28,11 +30,21 @@ public class Troca {
 	    private Long id;
 
 	   
-	    @ManyToMany(cascade = CascadeType.ALL)
+	 @ManyToMany
+	    @JoinTable(
+	        name = "troca_jogos_usuario_x",
+	        joinColumns = @JoinColumn(name = "troca_id"),
+	        inverseJoinColumns = @JoinColumn(name = "jogo_id")
+	    )
 	    private List<Jogo> jogosUsuarioX;
 
 	   
-	    @ManyToMany(cascade = CascadeType.ALL)
+	 @ManyToMany
+	    @JoinTable(
+	        name = "troca_jogos_usuario_y",
+	        joinColumns = @JoinColumn(name = "troca_id"),
+	        inverseJoinColumns = @JoinColumn(name = "jogo_id")
+	    )
 	    private List<Jogo> jogosUsuarioY;
 	    
 	    @JsonBackReference
