@@ -60,7 +60,7 @@ public class Usuario {
     @JsonIgnoreProperties("usuario")
     @OneToMany(mappedBy = "usuario")
     private List<Jogo> jogos;
-
+//aaaaaaaaaaaaaaaaaa
    /* @JsonManagedReference
     @OneToMany(mappedBy = "usuarioX")
     private List<Troca> trocasUsuarioX;
