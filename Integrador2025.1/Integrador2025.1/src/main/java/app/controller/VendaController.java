@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import app.service.VendaService;
 
 @RestController
 @RequestMapping("api/venda")
+@CrossOrigin("*")
 public class VendaController {
 
     @Autowired
@@ -37,15 +39,11 @@ public class VendaController {
             @PathVariable Long usuarioVendedorId,
             @PathVariable Long usuarioCompradorId) {
 
-        try {
+     
             // Chama o serviço de venda
             String response = vendaService.realizarVenda(jogoId, usuarioVendedorId, usuarioCompradorId);
             return new ResponseEntity<>(response, HttpStatus.OK); // Retorna a mensagem com sucesso
-        } catch (RuntimeException e) {
-            // Em caso de erro, retorna o erro 400 (Bad Request)
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    
     }
     @GetMapping("/findAll")
 	public ResponseEntity<List<Venda>> findAll(){
@@ -55,51 +53,35 @@ public class VendaController {
 	
 	@GetMapping("/findById")
 	public ResponseEntity<Optional<Venda>> findById(@RequestParam Long id){
-		try {
+		
 			Optional<Venda> vendas = vendaService.findById(id);
 			return new ResponseEntity<>(vendas, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+	
 	}
 	
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteVenda(@PathVariable Long id) {
-try {
-			
+
 			String mensagem = this.vendaService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
-
-		}
+	
 }
   
 	@GetMapping("/findByConsole")
 	public ResponseEntity<List<Venda>> findByJogo_Console(@RequestParam Console console){
-		try {
+	
 			List<Venda> vendas = vendaService.findByJogo_Console(console);
 			return new ResponseEntity<>(vendas,HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
-		}
+	
 	}
 	
 	@GetMapping("/findByJogo")
 	public ResponseEntity<List<Venda>> findByJogo(@RequestParam Jogo jogo){
-		try {
+	
 			List<Venda> vendas = vendaService.findByJogo(jogo);
 			return new ResponseEntity<>(vendas, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
-		}
-	}
 	
+	}
     
 }

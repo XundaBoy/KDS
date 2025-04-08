@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import app.service.JogoService;
 
 @RestController
 @RequestMapping("api/jogo")
+@CrossOrigin("*")
 public class JogoController {
 	
 		@Autowired
@@ -29,90 +31,60 @@ public class JogoController {
 		
 		@PostMapping("/save")
 		public ResponseEntity<String> save (@RequestBody Jogo jogo){
-			try {
 				String mensagem = this.jogoService.save(jogo);
-				return new ResponseEntity<>(mensagem, HttpStatus.OK);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-			}
+				return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 		}
 		
 		@PostMapping("/update")
 		public ResponseEntity<String> update (@RequestBody Jogo jogo, @PathVariable Long id){
-			try {
+		
 				String mensagem = this.jogoService.update(jogo, id);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			}
 		}
 		
 		@DeleteMapping("/delete/{id}")
 		public ResponseEntity<String> delete (@PathVariable Long id){
-			try {
+		
 				String mensagem = this.jogoService.delete(id);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			}
-				
 		}
 		
 		@GetMapping("/findAll")
 		public ResponseEntity<List<Jogo>> findAll(){
-			try {
+			
 				List<Jogo> jogos = jogoService.findAll();
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			} 
+
 		}
 		
 		@GetMapping("/findById")
 		public ResponseEntity<Optional<Jogo>> findById(@RequestParam Long id){
-			try {
+			
 				Optional<Jogo> jogos = jogoService.findById(id);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			}
+		
 		}
 		
 		@GetMapping("/findByNomeContaining")
 		public ResponseEntity<List<Jogo>> findByNomeContaining(@RequestParam String nome){
-			try {
+		
 				List<Jogo> jogos = jogoService.findByNomeContaining(nome);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			}
+			
 		}
 		@GetMapping("/findByConsole")
-		public ResponseEntity<List<Jogo>> findByConsole(@RequestBody Console console){
-			try {
+		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Console console){
+		
 				List<Jogo> consoles = jogoService.findByConsole(console);
 				return new ResponseEntity<>(consoles, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
-			}
+			
 		}
 		
 		@GetMapping("/findByEstadoNovoOuRecondicionado")
 		public ResponseEntity<List<Jogo>> findByEstadoNovoOuRecondicionado(){
-			try {
+			
 				List<Jogo> consoles = jogoService.findByEstadoNovoOuRecondicionado();
 				return new ResponseEntity<>(consoles, HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
-			}
+			
 		}
 }

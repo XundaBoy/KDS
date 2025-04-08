@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import app.service.ConsoleService;
 
 @RestController
 @RequestMapping("api/console")
+@CrossOrigin("*")
 public class ConsoleController {
 	
 	@Autowired
@@ -28,90 +30,60 @@ public class ConsoleController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Console console){
-		try {
+		
 			String mensagem = this.consoleService.save(console);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+		
 	}
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update(@RequestBody Console console, @PathVariable Long id){
-		try {
+		
 			String mensagem = this.consoleService.update(console, id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+		
 	}
 	
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Console>> findAll(){
-		try {
+		
 			List<Console> consoles = new ArrayList<>();
 			return new ResponseEntity<>(consoles, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+		
 	}
 	
 	@GetMapping("/findById")
 	public ResponseEntity<Console> findById(@PathVariable Long id){
-		try {
+	
 			Console console = new Console();
 			console = this.consoleService.findById(id);
 			return new ResponseEntity<>(console, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
-		}
+		
 	}
 		
 		
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id){
-		try {
+		
 			String mensagem = consoleService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+		
 	
 	}
 	
-	@GetMapping("/findByNomeStartingWith")
+	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Console>> findByNomeStartingWith(@RequestParam String nome){
 		
-		try {
-			List<Console> consoles = this.consoleService.findByNomeStartingWith(nome);
-			
-			if(consoles.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
+			List<Console> consoles = this.consoleService.findByNomeStartingWith(nome);	
 			return new ResponseEntity<>(consoles, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);// TODO: handle exception
-		}
-	
-	
-	
+
 	}
 	
-	@GetMapping("/findByMarca")
+	@GetMapping("/findByMarcaContainingIgnoreCase")
 	public ResponseEntity<List<Console>> findByMarca(@PathVariable String marca){
-		try {
+		
 			List<Console> consoles = this.consoleService.findByMarca(marca);
 			return new ResponseEntity<>(consoles, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
-		}
+	
 	}
 	
 	

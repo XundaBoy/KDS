@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import app.service.UsuarioService;
 
 @RestController
 @RequestMapping("api/usuario")
+@CrossOrigin("*")
 public class UsuarioController {
 
 	@Autowired
@@ -28,26 +30,18 @@ public class UsuarioController {
 	//teste pull
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Usuario usuario){
-		try {
+		
 			String mensagem = this.usuarioService.save(usuario);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);// TODO: handle exception
-		}
-		}
+	}
 	
 	@PostMapping("/update")
 	public ResponseEntity<String> update (@RequestBody Usuario usuario, @PathVariable Long id){
 		
-		try {
 			String mensagem = this.usuarioService.update(usuario, id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);// TODO: handle exception
-		}
+
 	}
 	
 	
@@ -60,44 +54,28 @@ public class UsuarioController {
 	
 	@GetMapping("/findById")
 	public ResponseEntity<Optional<Usuario>> findById(@RequestParam Long id){
-		try {
+		
 			Optional<Usuario> usuarios = usuarioService.findById(id);
 			return new ResponseEntity<>(usuarios, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+	
 	}
 	
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
-try {
-			
+
 			String mensagem = this.usuarioService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
 
-		}
 }
 	
 	 @GetMapping("/findByNomeStartingWith")
 	    public ResponseEntity<List<Usuario>> findByNomeStartingWith(@RequestParam String nome) {
-	        try {
+	       
 	            List<Usuario> usuarios = this.usuarioService.findByNomeStartingWith(nome);
-
-	            if (usuarios.isEmpty()) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
-
 	            return new ResponseEntity<>(usuarios, HttpStatus.OK);
 
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	        }
-	    }
+	    
+}
 }

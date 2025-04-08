@@ -8,7 +8,7 @@ import app.entity.Cidade;
 import app.entity.Ranking;
 
 public interface RankingRepository extends JpaRepository<Ranking, Long> {
-	public List<Ranking> findByNomeStartingWith(String nome);
+	public List<Ranking> findByNomeStartingWithIgnoreCase(String nome);
 	
 	public List<Cidade> findByNomeIgnoreCase(String nome);
 }

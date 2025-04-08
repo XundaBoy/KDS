@@ -42,7 +42,7 @@ public class RankingService {
 	}
 	
 	public List<Ranking> findByNomeStartingWith(String nome){
-		return this.rankingRepository.findByNomeStartingWith(nome);
+		return this.rankingRepository.findByNomeStartingWithIgnoreCase(nome);
 	}
 	
 	public List<Cidade> findByNomeIgnoreCase(String nome){

@@ -41,7 +41,7 @@ public class CidadeService {
 	}
 	
 	public List<Cidade> findByNomeStartingWith(String nome){
-		return this.cidadeRepository.findByNomeStartingWith(nome);
+		return this.cidadeRepository.findByNomeStartingWithIgnoreCase(nome);
 	}
 	
 	public List<Cidade> findByNomeIgnoreCase(String nome){

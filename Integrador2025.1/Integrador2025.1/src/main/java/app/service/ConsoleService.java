@@ -39,11 +39,11 @@ public class ConsoleService {
 		return "Console deletado com sucesso";
 	}
 	public List<Console> findByNomeStartingWith(String nome){
-		return this.consoleRepository.findByNomeStartingWith(nome);
+		return this.consoleRepository.findByNomeStartingWithIgnoreCase(nome);
 	}
 	
 	public List<Console> findByMarca(String marca){
-		return this.consoleRepository.findByMarca(marca);
+		return this.consoleRepository.findByMarcaContainingIgnoreCase(marca);
 	}
 	
 	

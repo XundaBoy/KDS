@@ -47,7 +47,7 @@ public class UsuarioService {
 		}
 		
 		public List<Usuario> findByNomeStartingWith(String nome){
-			return this.usuarioRepository.findByNomeStartingWith(nome);
+			return this.usuarioRepository.findByNomeStartingWithIgnoreCase(nome);
 		}
 		
 		public List<Usuario> findAll(){
