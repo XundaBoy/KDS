@@ -52,7 +52,7 @@ public class ConsoleController {
 		
 	}
 	
-	@GetMapping("/findById")
+	@GetMapping("/findById/{id}")
 	public ResponseEntity<Console> findById(@PathVariable Long id){
 	
 			Console console = new Console();
