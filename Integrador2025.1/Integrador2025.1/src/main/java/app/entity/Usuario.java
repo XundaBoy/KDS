@@ -2,6 +2,8 @@ package app.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -56,7 +58,9 @@ public class Usuario {
 
     @JsonIgnoreProperties("usuarios")
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Ranking ranking;
+
 
     @JsonIgnoreProperties("usuario")
     @OneToMany(mappedBy = "usuario")

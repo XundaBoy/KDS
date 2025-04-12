@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,7 @@ public class JogoController {
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 		}
 		
-		@PostMapping("/update")
+		@PutMapping("/update/{id}")
 		public ResponseEntity<String> update (@RequestBody Jogo jogo, @PathVariable Long id){
 		
 				String mensagem = this.jogoService.update(jogo, id);
@@ -57,8 +58,8 @@ public class JogoController {
 
 		}
 		
-		@GetMapping("/findById")
-		public ResponseEntity<Optional<Jogo>> findById(@RequestParam Long id){
+		@GetMapping("/findById/{id}")
+		public ResponseEntity<Optional<Jogo>> findById(@PathVariable Long id){
 			
 				Optional<Jogo> jogos = jogoService.findById(id);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);

@@ -28,7 +28,7 @@ public class Cidade {
 	    @NotBlank(message = "Nome da cidade obrigatório")
 	 	private String nome;
 	    
-	    @JsonIgnoreProperties("cidade")
+	    @JsonIgnoreProperties(value = { "usuarios" }, allowSetters = false)
 	    @OneToMany(mappedBy = "cidade")
 	    private List<Usuario> usuarios;
 	    
