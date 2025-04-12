@@ -45,7 +45,7 @@ public class Jogo {
     @ManyToOne
     @NotNull
     private Usuario usuario;
-    
+    //aaaaaaaa
     @JsonIgnoreProperties("console")
     @ManyToOne
     @NotNull
