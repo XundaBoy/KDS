@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Cidade;
 import app.entity.Console;
 import app.service.ConsoleService;
 
@@ -46,7 +47,7 @@ public class ConsoleController {
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Console>> findAll(){
 		
-			List<Console> consoles = new ArrayList<>();
+		List<Console> consoles = consoleService.findAll();
 			return new ResponseEntity<>(consoles, HttpStatus.OK);
 		
 	}
