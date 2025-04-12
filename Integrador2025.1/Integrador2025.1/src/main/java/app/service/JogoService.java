@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Console;
-import app.entity.EstadoJogo;
+
 import app.entity.Jogo;
 import app.repository.JogoRepository;
 
@@ -64,10 +64,6 @@ public class JogoService {
 		return this.jogoRepository.findByConsole(console);
 				
 	}
-	
-	public List<Jogo>findByEstadoNovoOuRecondicionado( ){
-		return this.jogoRepository.findByEstadoNovoOuRecondicionado();
-				
-	}
+
 	
 }

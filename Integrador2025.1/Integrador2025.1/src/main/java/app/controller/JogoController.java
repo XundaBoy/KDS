@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Console;
-import app.entity.EstadoJogo;
+
 import app.entity.Jogo;
 import app.service.JogoService;
 
@@ -80,11 +80,5 @@ public class JogoController {
 			
 		}
 		
-		@GetMapping("/findByEstadoNovoOuRecondicionado")
-		public ResponseEntity<List<Jogo>> findByEstadoNovoOuRecondicionado(){
-			
-				List<Jogo> consoles = jogoService.findByEstadoNovoOuRecondicionado();
-				return new ResponseEntity<>(consoles, HttpStatus.OK);
-			
-		}
+		
 }

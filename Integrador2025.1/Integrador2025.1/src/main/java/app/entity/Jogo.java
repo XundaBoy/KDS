@@ -35,8 +35,8 @@ public class Jogo {
 
     
 
-    @Enumerated(EnumType.STRING)
-    private EstadoJogo estado; 
+    
+    private String estadoJogo;
 
    
     private Float valor; 

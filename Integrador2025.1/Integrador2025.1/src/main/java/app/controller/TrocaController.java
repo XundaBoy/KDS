@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Console;
-import app.entity.EstadoJogo;
+
 import app.entity.Troca;
 import app.service.TrocaService;
 
@@ -72,12 +72,5 @@ public class TrocaController {
 	
 	}
 	
-	@GetMapping("/findByEstadoJogo")
-	public ResponseEntity<List<Troca>> findByEstadoJogo(@RequestParam EstadoJogo estado){
 	
-			List<Troca> trocas = trocaService.findByEstadoJogo(estado);
-			return new ResponseEntity<>(trocas, HttpStatus.OK);
-	
-	
-	}
 }

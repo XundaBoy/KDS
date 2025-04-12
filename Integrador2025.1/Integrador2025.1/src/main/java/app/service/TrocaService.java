@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Console;
-import app.entity.EstadoJogo;
+
 import app.entity.Jogo;
 import app.entity.Troca;
 import app.entity.Usuario;
@@ -67,7 +67,7 @@ public class TrocaService {
 	public List<Troca> findByConsole(Console console) {
         return trocaRepository.findByJogosUsuarioXConsoleOrJogosUsuarioYConsole(console, console);
     }
-	public List<Troca> findByEstadoJogo(EstadoJogo estado) {
+	/*public List<Troca> findByEstadoJogo(EstadoJogo estado) {
         return trocaRepository.findByJogosUsuarioXEstadoOrJogosUsuarioYEstado(estado, estado);
-    }
+    }*/
 }
