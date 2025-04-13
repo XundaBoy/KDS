@@ -41,11 +41,10 @@ public class RankingService {
 		return rankingRepository.findById(id).orElse(null);
 	}
 	
-	public List<Ranking> findByNomeStartingWith(String nome){
-		return this.rankingRepository.findByNomeStartingWithIgnoreCase(nome);
-	}
 	
-	public List<Cidade> findByNomeIgnoreCase(String nome){
-		return this.rankingRepository.findByNomeIgnoreCase(nome);
+	
+	public List<Ranking> findByNomeStartingWithIgnoreCase(String nome){
+	
+		return this.rankingRepository.findByNomeStartingWithIgnoreCase(nome);
 	}
 }

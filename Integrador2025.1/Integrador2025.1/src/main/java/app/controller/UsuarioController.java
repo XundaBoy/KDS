@@ -75,7 +75,8 @@ public class UsuarioController {
 	       
 	            List<Usuario> usuarios = this.usuarioService.findByNomeStartingWith(nome);
 	            return new ResponseEntity<>(usuarios, HttpStatus.OK);
+	 }	    
+}
 
-	    
-}
-}
+
+

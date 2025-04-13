@@ -56,8 +56,8 @@ public class JogoService {
 		return this.jogoRepository.findById(id);
 	}
 	
-	public List<Jogo>findByNomeContaining(String nome){
-		return this.jogoRepository.findByNomeContainingIgnoreCase(nome);
+	public List<Jogo>findByNomeStartingWithIgnoreCase(String nome){
+		return this.jogoRepository.findByNomeStartingWithIgnoreCase(nome);
 	}
 	
 	public List<Jogo>findByConsole(Console console){

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Cidade;
+
 import app.entity.Ranking;
 import app.service.RankingService;
 
@@ -71,19 +71,13 @@ public class RankingController {
 
 	}
 	
-	@GetMapping("/findByNomeStartingWith")
-	public ResponseEntity<List<Ranking>> findByNomeStartingWith(@RequestParam String nome){
-		
-			List<Ranking> rankings = this.rankingService.findByNomeStartingWith(nome);
-			return new ResponseEntity<>(rankings, HttpStatus.OK);
-		
-	}
 	
-	@GetMapping("/findByNomeIgnoreCase")
+	
+	@GetMapping("/findByNomeStartingWithIgnoreCase")
 
-	public ResponseEntity<List<Cidade>> findByNomeIgnoreCase(@RequestParam String nome){
-			List<Cidade> cidades = this.rankingService.findByNomeIgnoreCase(nome);	
-			return new ResponseEntity<>(cidades, HttpStatus.OK);
+	public ResponseEntity<List<Ranking>> findByNomeStartingWithIgnoreCase(@RequestParam String nome){
+			List<Ranking> ranking = this.rankingService.findByNomeStartingWithIgnoreCase(nome);	
+			return new ResponseEntity<>(ranking, HttpStatus.OK);
 
 	}
 	

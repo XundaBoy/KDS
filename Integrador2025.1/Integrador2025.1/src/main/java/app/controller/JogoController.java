@@ -66,10 +66,10 @@ public class JogoController {
 		
 		}
 		
-		@GetMapping("/findByNomeContaining")
+		@GetMapping("/findByNomeStartingWithIgnoreCase")
 		public ResponseEntity<List<Jogo>> findByNomeContaining(@RequestParam String nome){
 		
-				List<Jogo> jogos = jogoService.findByNomeContaining(nome);
+				List<Jogo> jogos = jogoService.findByNomeStartingWithIgnoreCase(nome);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
 			
 		}
