@@ -25,7 +25,7 @@ import app.service.UsuarioService;
 @RequestMapping("api/usuario")
 @CrossOrigin("*")
 public class UsuarioController {
-
+//aaaaaaaaaaaaaaaaa
 	@Autowired
 	private UsuarioService usuarioService;
 	//teste pull
