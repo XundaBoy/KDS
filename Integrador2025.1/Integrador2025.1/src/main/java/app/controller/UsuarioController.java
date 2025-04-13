@@ -71,10 +71,10 @@ public class UsuarioController {
 
 }
 	
-	 @GetMapping("/findByNomeStartingWith")
-	    public ResponseEntity<List<Usuario>> findByNomeStartingWith(@RequestParam String nome) {
+	 @GetMapping("/findByNomeStartingWithIgnoreCase")
+	    public ResponseEntity<List<Usuario>> findByNomeStartingWithIgnoreCase(@RequestParam String nome) {
 	       
-	            List<Usuario> usuarios = this.usuarioService.findByNomeStartingWith(nome);
+	            List<Usuario> usuarios = this.usuarioService.findByNomeStartingWithIgnoreCase(nome);
 	            return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	 }	    
 }

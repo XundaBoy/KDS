@@ -46,7 +46,7 @@ public class UsuarioService {
 			return this.usuarioRepository.findById(id);
 		}
 		
-		public List<Usuario> findByNomeStartingWith(String nome){
+		public List<Usuario> findByNomeStartingWithIgnoreCase(String nome){
 			return this.usuarioRepository.findByNomeStartingWithIgnoreCase(nome);
 		}
 		
