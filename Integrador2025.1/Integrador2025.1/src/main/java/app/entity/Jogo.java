@@ -35,10 +35,10 @@ public class Jogo {
 
     
 
-    
+    @NotBlank(message = "Estado do jogo obrigatório")
     private String estadoJogo;
 
-   
+    @NotBlank(message = "valor do jogo obrigatório")
     private Float valor; 
 
     @JsonIgnoreProperties("jogos")
@@ -46,7 +46,7 @@ public class Jogo {
     @NotNull
     private Usuario usuario;
     //aaaaaaaa
-    @JsonIgnoreProperties("console")
+    @JsonIgnoreProperties({"jogos", "console"})  // Evitar recursão ao serializar o console
     @ManyToOne
     @NotNull
     private Console console;
