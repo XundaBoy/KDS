@@ -64,6 +64,7 @@ public class JogoService {
 		return this.jogoRepository.findByConsole(console);
 				
 	}
+	
 
 	
 }
