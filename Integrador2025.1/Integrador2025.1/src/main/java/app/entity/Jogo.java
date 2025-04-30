@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -33,23 +34,27 @@ public class Jogo {
     @NotBlank(message = "Nome do jogo obrigatório")
     private String nome;
 
-    
 
-    
+
+    @NotBlank(message = "Estado do jogo obrigatório")
     private String estadoJogo;
 
-   
-    private Float valor; 
+    @NotNull
+    @DecimalMin("0.0") // ou o valor mínimo que você desejar
+    private Float valor;
+
 
     @JsonIgnoreProperties("jogos")
     @ManyToOne
     @NotNull
     private Usuario usuario;
     //aaaaaaaa
-    @JsonIgnoreProperties("console")
+    @JsonIgnoreProperties({"jogos", "console"})  // Evitar recursão ao serializar o console
     @ManyToOne
     @NotNull
     private Console console;
+    
+    
     
 //<<<<<<< HEAD
     /*@ManyToMany(mappedBy = "jogosUsuarioX")

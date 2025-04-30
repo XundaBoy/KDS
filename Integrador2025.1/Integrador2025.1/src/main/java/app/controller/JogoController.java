@@ -74,12 +74,13 @@ public class JogoController {
 			
 		}
 		@GetMapping("/findByConsole")
-		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Console console){
-		
-				List<Jogo> consoles = jogoService.findByConsole(console);
-				return new ResponseEntity<>(consoles, HttpStatus.OK);
-			
+		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Long consoleId) {
+		    Console console = new Console();
+		    console.setId(consoleId); // constrói o objeto com só o ID
+		    List<Jogo> jogos = jogoService.findByConsole(console);
+		    return new ResponseEntity<>(jogos, HttpStatus.OK);
 		}
+
 		
 		
 }

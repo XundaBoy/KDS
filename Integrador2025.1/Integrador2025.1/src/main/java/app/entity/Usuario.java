@@ -35,7 +35,7 @@ public class Usuario {
     private long id;
 
     @NotBlank(message = "O nome do usuario eh obrgatorio")
-    @Pattern(regexp = "^(\\S+\\s+\\S+.*)$")
+    @Pattern(regexp = "^(\\S+\\s+\\S+.*)$", message = "O nome deve conter pelo menos nome e sobrenome separados por espaço.")
     private String nome;
 
     private String telefone;
@@ -47,7 +47,7 @@ public class Usuario {
     @Email(message = "O Email deve ser valido")
     private String email;
    
-    @NotBlank 
+    @NotBlank (message = "Senha obrigatoria")
     private String senha;
 
     private String statusCadastro;
