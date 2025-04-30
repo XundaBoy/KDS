@@ -40,7 +40,7 @@ public class Usuario {
 
     private String telefone;
 
-    //@CPF(message = "O CPF deve ser valido")
+    @CPF(message = "O CPF deve ser valido")
     @NotBlank
     private String cpf;
 
