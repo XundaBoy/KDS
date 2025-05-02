@@ -68,4 +68,7 @@ public class ConsoleControllerTest {
 		ResponseEntity<List<Console>> retorno = this.consoleController.findAll();
 		assertEquals(HttpStatus.OK, retorno.getStatusCode());
 	}
+	
+	
+	
 }

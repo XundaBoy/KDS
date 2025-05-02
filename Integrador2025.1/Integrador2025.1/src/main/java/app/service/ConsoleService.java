@@ -1,6 +1,8 @@
 package app.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,16 @@ public class ConsoleService {
 	}
 	
 	public String delete(Long id) {
-		consoleRepository.deleteById(id);
-		return "Console deletado com sucesso";
+		Optional<Console> console = consoleRepository.findById(id);
+		
+		if (console.isPresent()) {
+	        consoleRepository.deleteById(id);
+	        return "Console deletado com sucesso";
+	    } else {
+	        throw new NoSuchElementException("Console não encontrado");
+	    }
+		
+		
 	}
 	public List<Console> findByNomeStartingWith(String nome){
 		return this.consoleRepository.findByNomeStartingWithIgnoreCase(nome);
