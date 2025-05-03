@@ -2,6 +2,7 @@ package app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,14 +62,19 @@ public class ConsoleController {
 		
 	}
 		
-		
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id){
-		
-			String mensagem = consoleService.delete(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		
-	
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+	    try {
+	       
+	        String mensagem = consoleService.delete(id);
+	        return new ResponseEntity<>(mensagem, HttpStatus.OK);
+	    } catch (NoSuchElementException e) {
+	        
+	        return new ResponseEntity<>("Console não encontrado", HttpStatus.NOT_FOUND);
+	    } catch (Exception e) {
+	        
+	        return new ResponseEntity<>("Erro interno do servidor", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 	
 	@GetMapping("/findByNomeStartingWithIgnoreCase")

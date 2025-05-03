@@ -18,17 +18,17 @@ public class CategoriaService {
 	
 	public String save (Categoria categoria) {
 		categoriaRepository.save(categoria);
-		return "Cidade salva com sucesso!";
+		return "Categoria salva com sucesso!";
 	}
 	public String update (Categoria categoria, Long id) {
 		categoria.setId(id);
 		this.categoriaRepository.save(categoria);
-		return "Cidade atualizado com sucesso";
+		return "Categoria atualizada com sucesso!";
 	}
 	
 	public String delete(Long id) {
 		categoriaRepository.deleteById(id);
-		return"Cidade deletada com sucesso!";
+		return"Categoria deletada com sucesso!";
 	}
 	
 	public List<Categoria> findAll(){

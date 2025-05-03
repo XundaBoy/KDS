@@ -19,20 +19,17 @@ public class JogoService {
 	@Autowired
 	private JogoRepository jogoRepository;
 	
-	public String save (Jogo jogo) {
-		//Regra de negócios 001
-		try {
-			if (jogo.getValor() < 0) {
+	public String save(Jogo jogo) {
+	    try {
+	        if (jogo.getValor() < 0) {
 	            throw new IllegalArgumentException("O valor do jogo deve ser maior ou igual a zero.");
-	            
 	        }
-			jogoRepository.save(jogo);
-			return "Jogo salvo com sucesso!";
-		} catch (Exception e) {
-			
-		}
-		return "Erro ao cadastrar";
-		
+	        jogoRepository.save(jogo);
+	        return "Jogo salvo com sucesso!";
+	    } catch (Exception e) {
+	        e.printStackTrace();  
+	        return "Erro ao cadastrar: " + e.getMessage();  
+	    }
 	}
 	
 	public String update (Jogo jogo, Long id) {
