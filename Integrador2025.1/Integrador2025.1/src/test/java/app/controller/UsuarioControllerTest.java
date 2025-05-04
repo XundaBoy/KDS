@@ -38,14 +38,14 @@ public class UsuarioControllerTest {
         usuario1.setNome("João Silva");
         usuario1.setCpf("123.456.789-00");
         usuario1.setEmail("joao.silva@example.com");
-        usuario1.setSenha("12345");
+        
         
         Usuario usuario2 = new Usuario();
         usuario2.setId(2L);
         usuario2.setNome("Maria Oliveira");
         usuario2.setCpf("987.654.321-00");
         usuario2.setEmail("maria.oliveira@example.com");
-        usuario2.setSenha("54321");
+        
 
         lista.add(usuario1);
         lista.add(usuario2);
@@ -71,7 +71,7 @@ public class UsuarioControllerTest {
         usuario.setNome("Carlos Pereira");
         usuario.setCpf("112.233.445-56");
         usuario.setEmail("carlos.pereira@example.com");
-        usuario.setSenha("password");
+       
 
         ResponseEntity<String> response = usuarioController.save(usuario);
 
@@ -86,7 +86,7 @@ public class UsuarioControllerTest {
         usuario.setNome("Carlos Pereira Atualizado");
         usuario.setCpf("112.233.445-56");
         usuario.setEmail("carlos.atualizado@example.com");
-        usuario.setSenha("newpassword");
+       
 
         ResponseEntity<String> response = usuarioController.update(usuario, 1L);
 
@@ -102,7 +102,7 @@ public class UsuarioControllerTest {
         usuarioMock.setNome("João Silva");
         usuarioMock.setCpf("123.456.789-00");
         usuarioMock.setEmail("joao.silva@example.com");
-        usuarioMock.setSenha("12345");
+       
 
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuarioMock));
 

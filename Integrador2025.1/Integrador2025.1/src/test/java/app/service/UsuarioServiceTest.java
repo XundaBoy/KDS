@@ -34,7 +34,7 @@ public class UsuarioServiceTest {
 	    usuario.setNome("João Silva");
 	    usuario.setCpf("123.456.789-00");
 	    usuario.setEmail("joao@email.com");
-	    usuario.setSenha("senha123");
+	
 	 }
 	 
 	 

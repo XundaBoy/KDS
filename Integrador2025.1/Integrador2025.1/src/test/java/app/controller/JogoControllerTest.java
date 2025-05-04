@@ -56,7 +56,7 @@ public class JogoControllerTest {
         usuarioMock.setNome("John Doe");
         usuarioMock.setEmail("johndoe@example.com");
         usuarioMock.setCpf("123.456.789-00");
-        usuarioMock.setSenha("senha123");
+       
 
        
         when(jogoRepository.save(jogo)).thenReturn(jogo); 
