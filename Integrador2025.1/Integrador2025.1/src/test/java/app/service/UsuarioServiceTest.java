@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import app.config.JwtServiceGenerator;
 import app.entity.Usuario;
 import app.repository.UsuarioRepository;
 
@@ -24,18 +25,20 @@ public class UsuarioServiceTest {
 	 @MockitoBean
 	 private UsuarioRepository usuarioRepository;
 	 
+	 @MockitoBean
+	 private JwtServiceGenerator jwtServiceGenerator;
+	 
 	 Usuario usuario;
 	 
 	 @BeforeEach
 	 void setup() {
-	       
-
-	    usuario = new Usuario();
-	    usuario.setNome("João Silva");
-	    usuario.setCpf("123.456.789-00");
-	    usuario.setEmail("joao@email.com");
-	
+	     usuario = new Usuario();
+	     usuario.setNome("João Silva");
+	     usuario.setCpf("123.456.789-00");
+	     usuario.setEmail("joao@email.com");
+	     usuario.setPassword("senha123");
 	 }
+
 	 
 	 
 	 @Test
@@ -50,13 +53,16 @@ public class UsuarioServiceTest {
 
 	        assertEquals("Cpf ja cadastrado", ex.getMessage());
 	    }
-
-	    @Test
+	 
+	 @Test
 	    @DisplayName("Cenário 02 - Deve salvar usuário com status INCOMPLETO quando telefone for nulo")
 
 	    void testSaveComTelefoneNulo() {
 	        when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(false);
 	        usuario.setTelefone(null);
+	        
+	        when(jwtServiceGenerator.generateToken(usuario)).thenReturn("mocked_token");
+
 
 	        String resultado = usuarioService.save(usuario);
 
@@ -64,6 +70,8 @@ public class UsuarioServiceTest {
 	        assertEquals("Usuario salvo com sucesso!", resultado);
 	       
 	    }
+
+	  
 
 	    @Test
 	    @DisplayName("Cenário 03 - Deve salvar usuário com status COMPLETO quando telefone for preenchido")

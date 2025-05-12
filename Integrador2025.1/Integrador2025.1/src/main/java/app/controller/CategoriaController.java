@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Categoria categoria){
 		
@@ -35,6 +37,7 @@ public class CategoriaController {
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Categoria categoria, @PathVariable Long id){
 			
@@ -42,7 +45,7 @@ public class CategoriaController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 				
@@ -52,13 +55,14 @@ public class CategoriaController {
 	}
 	
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Categoria>>findAll(){
 		List<Categoria> categorias = categoriaService.findAll();
 		return new ResponseEntity<>(categorias, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Categoria> getCidadeById(@PathVariable long id){
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,8 @@ public class RankingController {
 	@Autowired
 	private RankingService rankingService;
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Ranking ranking){
 	
@@ -36,6 +39,7 @@ public class RankingController {
 	
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Ranking ranking, @PathVariable Long id){
 		
@@ -46,6 +50,7 @@ public class RankingController {
 	}
 	
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 
@@ -56,13 +61,14 @@ public class RankingController {
 	}
 	
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Ranking>>findAll(){
 		List<Ranking> cidades = rankingService.findAll();
 		return new ResponseEntity<>(cidades, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Ranking> getCidadeById(@PathVariable long id){
 	
@@ -74,7 +80,7 @@ public class RankingController {
 	
 	
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
-
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Ranking>> findByNomeStartingWithIgnoreCase(@RequestParam String nome){
 			List<Ranking> ranking = this.rankingService.findByNomeStartingWithIgnoreCase(nome);	
 			return new ResponseEntity<>(ranking, HttpStatus.OK);

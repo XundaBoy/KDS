@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,14 @@ public class JogoController {
 		@Autowired
 		private JogoService jogoService;
 		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@PostMapping("/save")
 		public ResponseEntity<String> save (@RequestBody Jogo jogo){
 				String mensagem = this.jogoService.save(jogo);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 		}
 		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@PutMapping("/update/{id}")
 		public ResponseEntity<String> update (@RequestBody Jogo jogo, @PathVariable Long id){
 		
@@ -43,6 +46,7 @@ public class JogoController {
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		}
 		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@DeleteMapping("/delete/{id}")
 		public ResponseEntity<String> delete (@PathVariable Long id){
 		
@@ -50,6 +54,7 @@ public class JogoController {
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		}
 		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@GetMapping("/findAll")
 		public ResponseEntity<List<Jogo>> findAll(){
 			
@@ -57,7 +62,8 @@ public class JogoController {
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
 
 		}
-		
+	
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@GetMapping("/findById/{id}")
 		public ResponseEntity<Optional<Jogo>> findById(@PathVariable Long id){
 			
@@ -66,6 +72,7 @@ public class JogoController {
 		
 		}
 		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@GetMapping("/findByNomeStartingWithIgnoreCase")
 		public ResponseEntity<List<Jogo>> findByNomeContaining(@RequestParam String nome){
 		
@@ -73,6 +80,8 @@ public class JogoController {
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
 			
 		}
+		
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@GetMapping("/findByConsole")
 		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Long consoleId) {
 		    Console console = new Console();

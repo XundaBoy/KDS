@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class ConsoleController {
 	@Autowired
 	private ConsoleService consoleService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Console console){
 		
@@ -37,6 +39,7 @@ public class ConsoleController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		
 	}
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update(@RequestBody Console console, @PathVariable Long id){
 		
@@ -45,6 +48,7 @@ public class ConsoleController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Console>> findAll(){
 		
@@ -53,6 +57,7 @@ public class ConsoleController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Console> findById(@PathVariable Long id){
 	
@@ -62,6 +67,7 @@ public class ConsoleController {
 		
 	}
 		
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 	    try {
@@ -77,6 +83,7 @@ public class ConsoleController {
 	    }
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Console>> findByNomeStartingWith(@RequestParam String nome){
 		
@@ -85,6 +92,7 @@ public class ConsoleController {
 
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findByMarcaContainingIgnoreCase")
 	public ResponseEntity<List<Console>> findByMarca(@PathVariable String marca){
 		
