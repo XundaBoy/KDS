@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	//teste pull
 	@PostMapping("/save")
+	
 	public ResponseEntity<String> save (@RequestBody Usuario usuario){
 		
 			String mensagem = this.usuarioService.save(usuario);
@@ -37,6 +39,7 @@ public class UsuarioController {
 			
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Usuario usuario, @PathVariable Long id){
 		
@@ -46,13 +49,15 @@ public class UsuarioController {
 	}
 	
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Usuario>> findAll(){
 		List<Usuario> usuarios = usuarioService.findAll();
 		  return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Optional<Usuario>> findById(@PathVariable Long id){
 		
@@ -61,7 +66,7 @@ public class UsuarioController {
 	
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
 
@@ -70,7 +75,7 @@ public class UsuarioController {
 			
 
 }
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	 @GetMapping("/findByNomeStartingWithIgnoreCase")
 	    public ResponseEntity<List<Usuario>> findByNomeStartingWithIgnoreCase(@RequestParam String nome) {
 	       

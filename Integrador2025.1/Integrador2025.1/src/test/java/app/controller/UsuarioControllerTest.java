@@ -71,6 +71,7 @@ public class UsuarioControllerTest {
         usuario.setNome("Carlos Pereira");
         usuario.setCpf("112.233.445-56");
         usuario.setEmail("carlos.pereira@example.com");
+        usuario.setPassword("senha123");
        
 
         ResponseEntity<String> response = usuarioController.save(usuario);

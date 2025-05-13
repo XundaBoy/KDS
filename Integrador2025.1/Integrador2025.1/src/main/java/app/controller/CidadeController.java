@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class CidadeController {
 	@Autowired
 	private CidadeService cidadeService;
 	
-	
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Cidade cidade){
 		
@@ -35,6 +37,7 @@ public class CidadeController {
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Cidade cidade, @PathVariable Long id){
 			
@@ -42,7 +45,7 @@ public class CidadeController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 				
@@ -52,13 +55,14 @@ public class CidadeController {
 	}
 	
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Cidade>>findAll(){
 		List<Cidade> cidades = cidadeService.findAll();
 		return new ResponseEntity<>(cidades, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Cidade> getCidadeById(@PathVariable long id){
 		
@@ -66,6 +70,8 @@ public class CidadeController {
 			return new ResponseEntity<>(cidade, HttpStatus.OK);
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeStartingWith(@RequestParam String nome){
 		
@@ -76,6 +82,8 @@ public class CidadeController {
 			
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@GetMapping("/findByNomeIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeIgnoreCase(@RequestParam String nome){
 		

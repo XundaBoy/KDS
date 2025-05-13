@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class VendaController {
     
    
 
-    // Endpoint para realizar a venda
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/realizar/{jogoId}/{usuarioVendedorId}/{usuarioCompradorId}")
     public ResponseEntity<String> realizarVenda(
             @PathVariable Long jogoId,
@@ -40,17 +41,20 @@ public class VendaController {
             @PathVariable Long usuarioCompradorId) {
 
      
-            // Chama o serviço de venda
+    
             String response = vendaService.realizarVenda(jogoId, usuarioVendedorId, usuarioCompradorId);
-            return new ResponseEntity<>(response, HttpStatus.OK); // Retorna a mensagem com sucesso
+            return new ResponseEntity<>(response, HttpStatus.OK);
     
     }
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/findAll")
 	public ResponseEntity<List<Venda>> findAll(){
 		List<Venda> vendas = vendaService.findAll();
 		  return new ResponseEntity<>(vendas, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findById")
 	public ResponseEntity<Optional<Venda>> findById(@RequestParam Long id){
 		
@@ -59,7 +63,7 @@ public class VendaController {
 	
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteVenda(@PathVariable Long id) {
 
@@ -68,6 +72,7 @@ public class VendaController {
 	
 }
   
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findByConsole")
 	public ResponseEntity<List<Venda>> findByJogo_Console(@RequestParam Console console){
 	
@@ -76,6 +81,7 @@ public class VendaController {
 	
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findByJogo")
 	public ResponseEntity<List<Venda>> findByJogo(@RequestParam Jogo jogo){
 	

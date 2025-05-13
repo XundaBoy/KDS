@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class TrocaController {
     private TrocaService trocaService;
 
     // Endpoint para realizar a troca
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/realizar/{jogoXId}/{jogoYId}/{usuarioXId}/{usuarioYId}")
     public ResponseEntity<String> realizarTroca(
             @PathVariable Long jogoXId,
@@ -42,12 +44,14 @@ public class TrocaController {
   
     }
     @GetMapping("/findAll")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Troca>> findAll(){
 		List<Troca> trocas = trocaService.findAll();
 		  return new ResponseEntity<>(trocas, HttpStatus.OK);
 	}
 	
 	@GetMapping("/findById/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Optional<Troca>> findById(@PathVariable Long id){
 	
 			Optional<Troca> trocas = trocaService.findById(id);
@@ -57,6 +61,7 @@ public class TrocaController {
 	
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> deleteTroca(@PathVariable Long id) {
 
 			String mensagem = this.trocaService.delete(id);
@@ -65,6 +70,7 @@ public class TrocaController {
 }
 	
 	@GetMapping("/findByConsole")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Troca>> findByConsole(@RequestParam Console console){
 	
 			List<Troca> trocas = trocaService.findByConsole(console);
