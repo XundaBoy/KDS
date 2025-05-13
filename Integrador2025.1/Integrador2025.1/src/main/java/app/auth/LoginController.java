@@ -3,6 +3,7 @@ package app.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/login")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class LoginController {
 
+	
 	@Autowired
 	private LoginService loginService;
 
@@ -26,7 +28,8 @@ public class LoginController {
 			System.out.println(ex.getMessage());
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
+	        e.printStackTrace();   // <— imprime stack completo do IllegalArgumentException
+			
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -36,7 +36,7 @@ public class SecurityConfig  {
 		.csrf(AbstractHttpConfigurer::disable)
 		.cors(AbstractHttpConfigurer::disable)
 		.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/api/login").permitAll() //publico, acessado sem autenticação
+				.requestMatchers("/api/login").permitAll() 
 				.requestMatchers("/api/register").permitAll()
 				.requestMatchers("/api/cidade/findAll").permitAll()
 				.requestMatchers("/api/usuario/save").permitAll()
@@ -61,6 +61,8 @@ public class SecurityConfig  {
 		source.registerCorsConfiguration("/**", config);
 		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 		bean.setOrder(-102);
+		
+
 		return bean;
 	}
 	
