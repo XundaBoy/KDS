@@ -1,9 +1,10 @@
 package app.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import app.entity.Cidade;
 import app.repository.CidadeRepository;
@@ -36,6 +41,10 @@ public class CidadeControllerTest {
 
     @BeforeEach
     void setup() {
+    	var authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        var authentication = new UsernamePasswordAuthenticationToken("admin", null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    	
         cidade = new Cidade();
         cidade.setId(1L);
         cidade.setNome("Cidade Teste");
@@ -51,6 +60,7 @@ public class CidadeControllerTest {
 
     @Test
     @DisplayName("Cenário 01 - Teste de integração - save() com dados válidos")
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void cenario01() {
         ResponseEntity<String> response = cidadeController.save(cidade);
 

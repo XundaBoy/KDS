@@ -55,7 +55,7 @@ public class CidadeController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Cidade>>findAll(){
 		List<Cidade> cidades = cidadeService.findAll();

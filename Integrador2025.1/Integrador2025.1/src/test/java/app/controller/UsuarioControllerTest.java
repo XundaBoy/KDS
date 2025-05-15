@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import app.entity.Usuario;
@@ -31,6 +34,10 @@ public class UsuarioControllerTest {
 
     @BeforeEach
     void setup() {
+    	var authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        var authentication = new UsernamePasswordAuthenticationToken("admin", null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    	
         List<Usuario> lista = new ArrayList<>();
 
         Usuario usuario1 = new Usuario();
@@ -59,6 +66,7 @@ public class UsuarioControllerTest {
     @Test
     @DisplayName("Cenário 01 - Teste de integração - findAll()")
     void cenario01() {
+    	
         ResponseEntity<List<Usuario>> retorno = this.usuarioController.findAll();
         assertEquals(2, retorno.getBody().size());
         assertEquals(HttpStatus.OK, retorno.getStatusCode());

@@ -1,7 +1,12 @@
 package app.controller;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,15 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import app.entity.Categoria;
 import app.repository.CategoriaRepository;
 import app.service.CategoriaService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 public class CategoriaControllerTest {
@@ -34,6 +38,10 @@ public class CategoriaControllerTest {
 
     @BeforeEach
     public void setup() {
+    	var authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        var authentication = new UsernamePasswordAuthenticationToken("admin", null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    	
         List<Categoria> categorias = new ArrayList<>();
         
         Categoria categoria1 = new Categoria();

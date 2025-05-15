@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import app.entity.Console;
@@ -31,6 +34,10 @@ public class ConsoleControllerTest {
 	
 	@BeforeEach
 	void setup() {
+		var authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        var authentication = new UsernamePasswordAuthenticationToken("admin", null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
 		List<Console> lista = new ArrayList<>();
 		
 		Console console01 = new Console();

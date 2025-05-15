@@ -1,9 +1,8 @@
 package app.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,16 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import app.entity.Console;
 import app.entity.Jogo;
 import app.entity.Usuario;
 import app.entity.Venda;
-import app.service.VendaService;
 import app.repository.ConsoleRepository;
 import app.repository.JogoRepository;
 import app.repository.VendaRepository;
+import app.service.VendaService;
 
 @SpringBootTest
 public class VendaControllerTest {
@@ -50,6 +52,10 @@ public class VendaControllerTest {
   
     @BeforeEach
     void setup() {
+    	var authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        var authentication = new UsernamePasswordAuthenticationToken("admin", null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    	
         console = new Console();
         console.setId(1L);
         console.setNome("PS5");
