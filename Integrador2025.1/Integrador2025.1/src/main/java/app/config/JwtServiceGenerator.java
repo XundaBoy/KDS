@@ -30,7 +30,7 @@ public class JwtServiceGenerator {
       extraClaims.put("role", userDetails.getRole());
       extraClaims.put("outracoisa", "teste");
 	  
-      
+      //777
       return Jwts
               .builder()
               .setClaims(extraClaims)
