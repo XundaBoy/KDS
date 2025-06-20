@@ -1,6 +1,10 @@
 package app.service;
 
 import java.util.ArrayList;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -74,9 +78,11 @@ public class JogoService {
         return "Jogo deletado com sucesso!";
     }
 
-    public List<Jogo> findAll() {
-        return new ArrayList<>(this.jogoRepository.findAll());
-    }
+    public Page<Jogo> findAll(int numPaginaAtual){ 
+    	int totalPorPagina = 2; 
+    	PageRequest pageRequest = PageRequest.of(numPaginaAtual-1, totalPorPagina); 
+    	return this.jogoRepository.findAll(pageRequest); 
+    	} 
 
     public Optional<Jogo> findById(Long id) {
         return this.jogoRepository.findById(id);

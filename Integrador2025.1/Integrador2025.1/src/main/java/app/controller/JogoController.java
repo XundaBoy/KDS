@@ -1,6 +1,10 @@
 package app.controller;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +59,11 @@ public class JogoController {
 		}
 		
 		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
-		@GetMapping("/findAll")
-		public ResponseEntity<List<Jogo>> findAll(){
+		@GetMapping("/findAll/{numPaginaAtual}")
+		public ResponseEntity<Page<Jogo>> findAll(@PathVariable("numPaginaAtual") int 
+				numPaginaAtual){
 			
-				List<Jogo> jogos = jogoService.findAll();
+				Page<Jogo> jogos = jogoService.findAll(numPaginaAtual);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
 
 		}
