@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import app.entity.Usuario;
+import app.exception.UsernameAlreadyUsedException;
 import app.repository.UsuarioRepository;
 
 @Service
@@ -64,4 +65,40 @@ public class UsuarioService {
 			lista = this.usuarioRepository.findAll();
 			return lista;
 		}
+		
+		
+	    public Usuario connect(Usuario user) throws UsernameAlreadyUsedException {
+			Usuario dbUser = usuarioRepository.findByUsername(user.getUsername());
+
+	        if (dbUser != null) {
+
+	            if (dbUser.getConnected()) {
+	                throw new UsernameAlreadyUsedException("This user is already connected: " + dbUser.getUsername());
+	            }
+
+	            dbUser.setConnected(true);
+	            return usuarioRepository.save(dbUser);
+	        }
+
+	        user.setConnected(true);
+	        return usuarioRepository.save(user);
+	    }
+
+	    
+	    public Usuario disconnect(Usuario user) {
+	        if (user == null) {
+	            return null;
+	        }
+
+	        Usuario dbUser = usuarioRepository.findByUsername(user.getUsername());
+	        if (dbUser == null) {
+	            return user;
+	        }
+
+	        dbUser.setConnected(false);
+	        return usuarioRepository.save(dbUser);
+	    }
+
+		
+		
 }
