@@ -1,4 +1,4 @@
-package app.auth;
+	package app.auth;
 
 import lombok.Getter;
 import lombok.Setter;
