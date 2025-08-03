@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -56,22 +57,14 @@ public class Jogo {
     
     
     
-//<<<<<<< HEAD
-    /*@ManyToMany(mappedBy = "jogosUsuarioX")
-=======
-    @JsonIgnoreProperties("jogosUsuarioX") 
-    @ManyToMany(mappedBy = "jogosUsuarioX")
->>>>>>> branch 'master' of https://github.com/XundaBoy/KDS.git
-    private List<Troca> trocasUsuarioX;
+    @OneToOne(mappedBy = "jogoX")
+    private Troca trocaComoX;
     
-    @JsonIgnoreProperties("jogosUsuarioY")
-    @ManyToMany(mappedBy = "jogosUsuarioY")
-    private List<Troca> trocasUsuarioY;
+    @OneToOne(mappedBy = "jogoY")
+    private Troca trocaComoY;
+    
+    
 
-    @JsonIgnoreProperties("jogo")
-    @OneToMany(mappedBy = "jogo")
-    private List<Venda> vendas;
-    */
 }
 
 	

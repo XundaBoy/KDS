@@ -80,21 +80,7 @@ public class Usuario implements UserDetails{
     @OneToMany(mappedBy = "usuario")
     private List<Jogo> jogos;
 
-   /*@JsonManagedReference
-    @OneToMany(mappedBy = "usuarioX")
-    private List<Troca> trocasUsuarioX;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "usuarioY")
-    private List<Troca> trocasUsuarioY;
-
-    @JsonIgnoreProperties("usuarioVendedor")
-    @OneToMany(mappedBy = "usuarioVendedor")
-    private List<Venda> vendasUsuario;
-
-    @JsonIgnoreProperties("usuarioComprador")
-    @OneToMany(mappedBy = "usuarioComprador")
-    private List<Venda> comprasUsuario;*/
+   
 	
     
     @JsonIgnore
@@ -105,7 +91,11 @@ public class Usuario implements UserDetails{
 	    return authorities;
 	}
 	
+	@OneToMany(mappedBy = "usuarioX")
+	private List<Troca> trocasComoX;
 	
+	@OneToMany(mappedBy = "usuarioY")
+	private List<Troca> trocasComoY;
 
 	@Override
 	public String getPassword() {
