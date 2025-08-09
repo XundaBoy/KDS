@@ -84,6 +84,10 @@ public class JogoService {
     	return this.jogoRepository.findAll(pageRequest); 
     	} 
 
+    public List<Jogo> findAllAll(){
+		return jogoRepository.findAll();
+	}
+    
     public Optional<Jogo> findById(Long id) {
         return this.jogoRepository.findById(id);
     }

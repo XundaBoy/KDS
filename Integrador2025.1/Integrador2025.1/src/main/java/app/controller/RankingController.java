@@ -64,8 +64,8 @@ public class RankingController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Ranking>>findAll(){
-		List<Ranking> cidades = rankingService.findAll();
-		return new ResponseEntity<>(cidades, HttpStatus.OK);
+		List<Ranking> rankings = rankingService.findAll();
+		return new ResponseEntity<>(rankings, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

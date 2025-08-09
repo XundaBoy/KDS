@@ -2,7 +2,9 @@ package app.entity;
 
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,10 +30,10 @@ public class Troca {
 	@OneToOne
 	private Jogo jogoY;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuarioX;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuarioY;
 	
 	

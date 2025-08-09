@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import app.entity.Console;
 
 import app.entity.Jogo;
+import app.entity.Ranking;
 import app.service.JogoService;
 
 @RestController
@@ -66,6 +67,13 @@ public class JogoController {
 				Page<Jogo> jogos = jogoService.findAll(numPaginaAtual);
 				return new ResponseEntity<>(jogos, HttpStatus.OK);
 
+		}
+		
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping("/findAllAll")
+		public ResponseEntity<List<Jogo>>findAll(){
+			List<Jogo> jogos = jogoService.findAllAll();
+			return new ResponseEntity<>(jogos, HttpStatus.OK);
 		}
 	
 		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")

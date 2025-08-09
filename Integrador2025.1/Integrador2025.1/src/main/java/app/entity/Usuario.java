@@ -12,10 +12,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -90,11 +93,13 @@ public class Usuario implements UserDetails{
 	    authorities.add(new SimpleGrantedAuthority(this.role));
 	    return authorities;
 	}
-	
-	@OneToMany(mappedBy = "usuarioX")
+ 
+    @JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioX")
 	private List<Troca> trocasComoX;
 	
-	@OneToMany(mappedBy = "usuarioY")
+    @JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioY")
 	private List<Troca> trocasComoY;
 
 	@Override

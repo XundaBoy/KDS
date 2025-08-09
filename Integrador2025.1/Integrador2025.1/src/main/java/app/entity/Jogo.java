@@ -1,6 +1,7 @@
 package app.entity;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -56,10 +57,11 @@ public class Jogo {
     private Console console;
     
     
-    
+    @JsonIgnore
     @OneToOne(mappedBy = "jogoX")
     private Troca trocaComoX;
     
+    @JsonIgnore
     @OneToOne(mappedBy = "jogoY")
     private Troca trocaComoY;
     
