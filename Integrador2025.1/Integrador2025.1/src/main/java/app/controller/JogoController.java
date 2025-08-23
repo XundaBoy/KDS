@@ -69,7 +69,7 @@ public class JogoController {
 
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 		@GetMapping("/findAllAll")
 		public ResponseEntity<List<Jogo>>findAll(){
 			List<Jogo> jogos = jogoService.findAllAll();
