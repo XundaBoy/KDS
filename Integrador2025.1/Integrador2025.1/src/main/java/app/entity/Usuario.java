@@ -80,7 +80,7 @@ public class Usuario implements UserDetails{
 
 
     @JsonIgnoreProperties("usuario")
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Jogo> jogos;
 
    
