@@ -36,6 +36,7 @@ public class UsuarioService {
 			 
 			String senhaCriptografada = passwordEncoder.encode(usuario.getPassword());
 		     usuario.setPassword(senhaCriptografada); 
+		     usuario.setRole("ROLE_USER");
 			 
 			usuarioRepository.save(usuario);
 			return "Usuario salvo com sucesso!";

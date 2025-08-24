@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Console {
 	private String marca;
 	
 	@JsonIgnoreProperties("console")
-	@OneToMany(mappedBy = "console")
+	@OneToMany(mappedBy = "console", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Jogo> jogos;
 	
 }
