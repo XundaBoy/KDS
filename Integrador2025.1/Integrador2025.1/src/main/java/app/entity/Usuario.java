@@ -52,6 +52,8 @@ public class Usuario implements UserDetails{
 	
 	
 	private Boolean connected = false;
+	
+	@JsonIgnore
 	private String password;
 	private String role;
 

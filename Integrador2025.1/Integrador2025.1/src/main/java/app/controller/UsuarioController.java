@@ -24,22 +24,21 @@ import app.service.UsuarioService;
 
 @RestController
 @RequestMapping("api/usuario")
-@CrossOrigin("*")
 public class UsuarioController {
 //aaaaaaaaaaaaaaaaa
 	@Autowired
 	private UsuarioService usuarioService;
 	//teste pull
-	@PostMapping("/save")
+	/*@PostMapping("/save")
 	
 	public ResponseEntity<String> save (@RequestBody Usuario usuario){
 		
 			String mensagem = this.usuarioService.save(usuario);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 			
-	}
+	}*/
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Usuario usuario, @PathVariable Long id){
 		
@@ -49,7 +48,7 @@ public class UsuarioController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Usuario>> findAll(){
 		List<Usuario> usuarios = usuarioService.findAll();
@@ -57,7 +56,7 @@ public class UsuarioController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Optional<Usuario>> findById(@PathVariable Long id){
 		
@@ -66,7 +65,7 @@ public class UsuarioController {
 	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
 
@@ -75,7 +74,7 @@ public class UsuarioController {
 			
 
 }
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	 @GetMapping("/findByNomeStartingWithIgnoreCase")
 	    public ResponseEntity<List<Usuario>> findByNomeStartingWithIgnoreCase(@RequestParam String nome) {
 	       

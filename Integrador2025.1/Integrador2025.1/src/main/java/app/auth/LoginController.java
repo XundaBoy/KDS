@@ -1,4 +1,4 @@
-package app.auth;
+/*package app.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,4 +34,4 @@ public class LoginController {
 		}
 	}
 
-}
+}*/

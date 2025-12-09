@@ -22,14 +22,13 @@ import app.service.CidadeService;
 
 @RestController
 @RequestMapping("api/cidade")
-@CrossOrigin("*")
 public class CidadeController {
 	
 	@Autowired
 	private CidadeService cidadeService;
 	
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Cidade cidade){
 		
@@ -37,7 +36,7 @@ public class CidadeController {
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Cidade cidade, @PathVariable Long id){
 			
@@ -45,7 +44,7 @@ public class CidadeController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 				
@@ -62,7 +61,7 @@ public class CidadeController {
 		return new ResponseEntity<>(cidades, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Cidade> getCidadeById(@PathVariable long id){
 		
@@ -71,7 +70,7 @@ public class CidadeController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeStartingWith(@RequestParam String nome){
 		
@@ -83,7 +82,7 @@ public class CidadeController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findByNomeIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeIgnoreCase(@RequestParam String nome){
 		

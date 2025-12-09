@@ -23,13 +23,12 @@ import app.service.CidadeService;
 
 @RestController
 @RequestMapping("api/categoria")
-@CrossOrigin("*")
 public class CategoriaController {
 	
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Categoria categoria){
 		
@@ -37,7 +36,7 @@ public class CategoriaController {
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Categoria categoria, @PathVariable Long id){
 			
@@ -45,7 +44,7 @@ public class CategoriaController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 				
@@ -55,14 +54,14 @@ public class CategoriaController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Categoria>>findAll(){
 		List<Categoria> categorias = categoriaService.findAll();
 		return new ResponseEntity<>(categorias, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Categoria> getCidadeById(@PathVariable long id){
 		

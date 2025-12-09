@@ -25,13 +25,12 @@ import app.service.ConsoleService;
 
 @RestController
 @RequestMapping("api/console")
-@CrossOrigin("*")
 public class ConsoleController {
 	
 	@Autowired
 	private ConsoleService consoleService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Console console){
 		
@@ -39,7 +38,7 @@ public class ConsoleController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		
 	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update(@RequestBody Console console, @PathVariable Long id){
 		
@@ -48,7 +47,7 @@ public class ConsoleController {
 		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Console>> findAll(){
 		
@@ -57,7 +56,7 @@ public class ConsoleController {
 		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Console> findById(@PathVariable Long id){
 	
@@ -67,7 +66,7 @@ public class ConsoleController {
 		
 	}
 		
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 	    try {
@@ -83,7 +82,7 @@ public class ConsoleController {
 	    }
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Console>> findByNomeStartingWith(@RequestParam String nome){
 		
@@ -92,7 +91,7 @@ public class ConsoleController {
 
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 	@GetMapping("/findByMarcaContainingIgnoreCase")
 	public ResponseEntity<List<Console>> findByMarca(@PathVariable String marca){
 		

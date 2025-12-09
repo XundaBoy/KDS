@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import app.entity.Console;
 
@@ -30,20 +31,19 @@ import app.service.JogoService;
 
 @RestController
 @RequestMapping("api/jogo")
-@CrossOrigin("*")
 public class JogoController {
 	
 		@Autowired
 		private JogoService jogoService;
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@PostMapping("/save")
 		public ResponseEntity<String> save (@RequestBody Jogo jogo){
 				String mensagem = this.jogoService.save(jogo);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);	
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@PutMapping("/update/{id}")
 		public ResponseEntity<String> update (@RequestBody Jogo jogo, @PathVariable Long id){
 		
@@ -51,7 +51,7 @@ public class JogoController {
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@DeleteMapping("/delete/{id}")
 		public ResponseEntity<String> delete (@PathVariable Long id){
 		
@@ -59,7 +59,7 @@ public class JogoController {
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@GetMapping("/findAll/{numPaginaAtual}")
 		public ResponseEntity<Page<Jogo>> findAll(@PathVariable("numPaginaAtual") int 
 				numPaginaAtual){
@@ -69,14 +69,14 @@ public class JogoController {
 
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@GetMapping("/findAllAll")
 		public ResponseEntity<List<Jogo>>findAll(){
 			List<Jogo> jogos = jogoService.findAllAll();
 			return new ResponseEntity<>(jogos, HttpStatus.OK);
 		}
 	
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@GetMapping("/findById/{id}")
 		public ResponseEntity<Optional<Jogo>> findById(@PathVariable Long id){
 			
@@ -85,7 +85,7 @@ public class JogoController {
 		
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@GetMapping("/findByNomeStartingWithIgnoreCase")
 		public ResponseEntity<List<Jogo>> findByNomeContaining(@RequestParam String nome){
 		
@@ -94,7 +94,7 @@ public class JogoController {
 			
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 		@GetMapping("/findByConsole")
 		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Long consoleId) {
 		    Console console = new Console();

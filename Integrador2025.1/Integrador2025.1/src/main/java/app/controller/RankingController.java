@@ -23,14 +23,13 @@ import app.service.RankingService;
 
 @RestController
 @RequestMapping("api/ranking")
-@CrossOrigin("*")
 public class RankingController {
 	
 	@Autowired
 	private RankingService rankingService;
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save (@RequestBody Ranking ranking){
 	
@@ -39,7 +38,7 @@ public class RankingController {
 	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update (@RequestBody Ranking ranking, @PathVariable Long id){
 		
@@ -50,7 +49,7 @@ public class RankingController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
 
@@ -61,14 +60,14 @@ public class RankingController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Ranking>>findAll(){
 		List<Ranking> rankings = rankingService.findAll();
 		return new ResponseEntity<>(rankings, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Ranking> getCidadeById(@PathVariable long id){
 	
@@ -80,7 +79,7 @@ public class RankingController {
 	
 	
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Ranking>> findByNomeStartingWithIgnoreCase(@RequestParam String nome){
 			List<Ranking> ranking = this.rankingService.findByNomeStartingWithIgnoreCase(nome);	
 			return new ResponseEntity<>(ranking, HttpStatus.OK);
