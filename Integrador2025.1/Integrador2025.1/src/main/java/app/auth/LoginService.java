@@ -1,4 +1,4 @@
-/*//AuthenticationService.java
+//AuthenticationService.java
 package app.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +33,4 @@ public class LoginService {
 		return jwtToken;
 	}
 
-}*/
+}

@@ -1,8 +1,5 @@
 package app.service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.springframework.data.domain.Page;
@@ -13,7 +10,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import app.entity.Console;
 import app.entity.Jogo;
@@ -21,7 +17,6 @@ import app.entity.Usuario;
 import app.repository.ConsoleRepository;
 import app.repository.JogoRepository;
 import app.repository.UsuarioRepository;
-
 
 @Service
 public class JogoService {
@@ -64,9 +59,6 @@ public class JogoService {
             }
 
             jogo.setConsole(consoleOpt.get());
-            
-            //Salvar arquivo no banco
-           
 
             jogoRepository.save(jogo);
             return "Jogo salvo com sucesso!";
@@ -78,7 +70,7 @@ public class JogoService {
 
     public String update(Jogo jogo, Long id) {
         jogo.setId(id);
-        return save(jogo); 
+        return save(jogo); // Usa o mesmo método de validação e persistência
     }
 
     public String delete(Long id) {

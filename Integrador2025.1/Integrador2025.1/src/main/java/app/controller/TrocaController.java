@@ -19,25 +19,26 @@ import app.service.TrocaService;
 
 @RestController
 @RequestMapping("api/troca")
+@CrossOrigin("*")
 public class TrocaController {
 
 	
 	@Autowired
 	private TrocaService trocaService;
 	
-	@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
 	@PostMapping("/save")
 	public ResponseEntity<String>save(@RequestBody Troca troca){
 		String mensagem = this.trocaService.save(troca);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Troca>> findAll(){
 		List<Troca> trocas = trocaService.findAll();
 		return new ResponseEntity<>(trocas, HttpStatus.OK);	
 		}
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Troca> findById(@PathVariable Long id){
 		Troca troca = new Troca();

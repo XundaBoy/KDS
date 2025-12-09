@@ -44,8 +44,6 @@ public class Jogo {
     @NotNull
     @DecimalMin("0.0") // ou o valor mínimo que você desejar
     private Float valor;
-    
-    private String caminhoImagem;
 
 
     @JsonIgnoreProperties("jogos")

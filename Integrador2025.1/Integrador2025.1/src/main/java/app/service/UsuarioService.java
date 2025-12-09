@@ -18,7 +18,7 @@ public class UsuarioService {
 
 		@Autowired
 		private UsuarioRepository usuarioRepository;
-		/*
+		
 		@Autowired
 		private PasswordEncoder passwordEncoder;
 		
@@ -41,7 +41,7 @@ public class UsuarioService {
 			usuarioRepository.save(usuario);
 			return "Usuario salvo com sucesso!";
 		}
-		*/
+		
 		public String update (Usuario usuario, Long id) {
 			usuario.setId(id);
 			this.usuarioRepository.save(usuario);
