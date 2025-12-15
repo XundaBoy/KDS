@@ -99,4 +99,7 @@ public class JogoService {
     public List<Jogo> findByConsole(Console console) {
         return this.jogoRepository.findByConsole(console);
     }
+    
+
+    
 }

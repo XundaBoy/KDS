@@ -65,7 +65,10 @@ public class Jogo {
     @OneToOne(mappedBy = "jogoY")
     private Troca trocaComoY;
     
-    
+    public boolean estaEmTroca() {
+        return trocaComoX != null || trocaComoY != null;
+    }
+
 
 }
 

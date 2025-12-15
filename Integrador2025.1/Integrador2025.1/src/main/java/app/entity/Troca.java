@@ -2,14 +2,22 @@ package app.entity;
 
 
 
+import java.time.LocalDateTime;
+
+import app.entity.enums.StatusTroca;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,19 +33,41 @@ public class Troca {
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne
+	@ManyToOne(optional = false)
+	private Usuario usuarioA;
+	
+	@ManyToOne(optional = false)
+	private Usuario usuarioB;
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name = "jogo_y_id", unique = true)
 	private Jogo jogoX;
-	@OneToOne
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name = "jogo_x_id", unique = true)
 	private Jogo jogoY;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario usuarioX;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private StatusTroca status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario usuarioY;
+	// Confirmações
+	@NotBlank
+    @Column(nullable = false)
+    private boolean confirmadaPorUsuarioA = false;
 	
+	@NotBlank
+    @Column(nullable = false)
+    private boolean confirmadaPorUsuarioB = false;
 	
+	@Column(nullable = false)
+	private LocalDateTime criadaEm;
 	
+	private LocalDateTime concluidaEm;
 	
+	public void prePersist() {
+		this.criadaEm = LocalDateTime.now();
+		this.status = StatusTroca.SOLICITADA;
+	}
 	
 }
