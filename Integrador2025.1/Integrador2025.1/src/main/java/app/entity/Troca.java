@@ -52,11 +52,11 @@ public class Troca {
 	private StatusTroca status;
 	
 	// Confirmações
-	@NotBlank
+
     @Column(nullable = false)
     private boolean confirmadaPorUsuarioA = false;
 	
-	@NotBlank
+
     @Column(nullable = false)
     private boolean confirmadaPorUsuarioB = false;
 	

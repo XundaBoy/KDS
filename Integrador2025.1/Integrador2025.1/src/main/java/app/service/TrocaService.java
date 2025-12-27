@@ -66,6 +66,14 @@ public TrocaResponseDTO solicitarTroca(Long usuarioAId, SolicitarTrocaDTO dto) {
 		            .orElseThrow(() -> new IllegalArgumentException("Troca não encontrada"));
 		
 		    validarParticipante(troca, usuarioId);
+		    
+		    if(troca.getStatus() == StatusTroca.CONCLUIDA){
+		        throw new IllegalStateException("Não é possível cancelar uma troca já concluída.");
+		    }
+
+		    if(troca.getStatus() == StatusTroca.CANCELADA){
+		        throw new IllegalStateException("Esta troca já foi cancelada anteriormente.");
+		    }
 		
 		    troca.setStatus(StatusTroca.CANCELADA);
 		    trocaRepository.save(troca);
