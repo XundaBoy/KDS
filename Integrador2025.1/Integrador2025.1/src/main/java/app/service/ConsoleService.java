@@ -15,16 +15,19 @@ public class ConsoleService {
 	@Autowired
 	private ConsoleRepository consoleRepository;
 	
-	public String save(Console console) {
-		this.consoleRepository.save(console);
-		return "Console salvo com sucesso";
-	}
+	public Console save(Console console) {
+        return consoleRepository.save(console);
+    }
 	
-	public String update(Console console, Long id) {
-		console.setId(id);
-		this.consoleRepository.save(console);
-		return "Console atualizado com sucesso";
-	}
+	public Console update(Console console, Long id) {
+        Console existente = consoleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Console não encontrado"));
+        
+        existente.setNome(console.getNome());
+        existente.setMarca(console.getMarca());
+        
+        return consoleRepository.save(existente);
+    }
 	
 	public List<Console> findAll(){
 		return consoleRepository.findAll();
@@ -36,18 +39,13 @@ public class ConsoleService {
 		return console;
 	}
 	
-	public String delete(Long id) {
-		Optional<Console> console = consoleRepository.findById(id);
-		
-		if (console.isPresent()) {
-	        consoleRepository.deleteById(id);
-	        return "Console deletado com sucesso";
-	    } else {
-	        throw new NoSuchElementException("Console não encontrado");
-	    }
-		
-		
-	}
+	public void delete(Long id) {
+        if(!consoleRepository.existsById(id)) {
+            throw new RuntimeException("Console não encontrado");
+        }
+        consoleRepository.deleteById(id);
+    }
+	
 	public List<Console> findByNomeStartingWith(String nome){
 		return this.consoleRepository.findByNomeStartingWithIgnoreCase(nome);
 	}

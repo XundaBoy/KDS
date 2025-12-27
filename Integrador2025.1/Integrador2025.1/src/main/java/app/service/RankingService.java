@@ -16,30 +16,33 @@ public class RankingService {
 	@Autowired
 	private RankingRepository rankingRepository;
 	
-	public String save ( Ranking ranking) {
-		rankingRepository.save(ranking);
-		return "Ranking salvo com sucesso!";
-	}
-	public String update (Ranking ranking, Long id) {
-		ranking.setId(id);
-		this.rankingRepository.save(ranking);
-		return "Ranking atualizado com sucesso";
-	}
+	public Ranking save(Ranking ranking) {
+        return rankingRepository.save(ranking);
+    }
 	
-	public String delete(Long id) {
-		rankingRepository.deleteById(id);
-		return"Raking deletado com sucesso!";
-	}
+	public Ranking update(Ranking dados, Long id) {
+        Ranking existente = findById(id);
+
+        existente.setNome(dados.getNome());
+
+        return rankingRepository.save(existente);
+    }
+	
+	public void delete(Long id) {
+        if(!rankingRepository.existsById(id)) {
+            throw new RuntimeException("Ranking não encontrado");
+        }
+        rankingRepository.deleteById(id);
+    }
 	
 	public List<Ranking> findAll(){
-		List<Ranking> lista = new ArrayList<>();
-		lista = this.rankingRepository.findAll();
-		return lista;
-	}
+        return rankingRepository.findAll();
+    }
 	
 	public Ranking findById(Long id) {
-		return rankingRepository.findById(id).orElse(null);
-	}
+        return rankingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ranking não encontrado"));
+    }
 	
 	
 	

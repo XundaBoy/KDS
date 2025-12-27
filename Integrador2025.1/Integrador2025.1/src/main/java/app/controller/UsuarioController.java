@@ -1,24 +1,12 @@
 package app.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import app.entity.Jogo;
 import app.entity.Usuario;
 import app.service.UsuarioService;
 
@@ -26,63 +14,55 @@ import app.service.UsuarioService;
 @RequestMapping("api/usuario")
 @CrossOrigin("*")
 public class UsuarioController {
-//aaaaaaaaaaaaaaaaa
-	@Autowired
-	private UsuarioService usuarioService;
-	//teste pull
-	@PostMapping("/save")
-	
-	public ResponseEntity<String> save (@RequestBody Usuario usuario){
-		
-			String mensagem = this.usuarioService.save(usuario);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-			
-	}
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
-	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update (@RequestBody Usuario usuario, @PathVariable Long id){
-		
-			String mensagem = this.usuarioService.update(usuario, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 
-	}
-	
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("/findAll")
-	public ResponseEntity<List<Usuario>> findAll(){
-		List<Usuario> usuarios = usuarioService.findAll();
-		  return new ResponseEntity<>(usuarios, HttpStatus.OK);
-	}
-	
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("/findById/{id}")
-	public ResponseEntity<Optional<Usuario>> findById(@PathVariable Long id){
-		
-			Optional<Usuario> usuarios = usuarioService.findById(id);
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);
-	
-	}
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
+    @Autowired
+    private UsuarioService usuarioService;
 
-			String mensagem = this.usuarioService.delete(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK );
-			
+
+    @PostMapping("/save")
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
+        Usuario salvo = usuarioService.save(usuario);
+        return ResponseEntity.status(201).body(salvo);
+    }
+
+
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Usuario> update(@RequestBody Usuario usuario, @PathVariable Long id){
+    	Usuario atualizado = usuarioService.update(id, usuario);
+        return ResponseEntity.ok(atualizado);
+    }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/findAll")
+    public ResponseEntity<List<Usuario>> findAll(){
+        return ResponseEntity.ok(usuarioService.findAll());
+    }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Usuario> findById(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.findById(id));
+    }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build(); // 204
+    }
+
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/findByNomeStartingWithIgnoreCase")
+    public ResponseEntity<List<Usuario>> findByNomeStartingWithIgnoreCase(@RequestParam String nome) {
+        return ResponseEntity.ok(usuarioService.findByNomeStartingWithIgnoreCase(nome));
+    }
 
 }
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
-	 @GetMapping("/findByNomeStartingWithIgnoreCase")
-	    public ResponseEntity<List<Usuario>> findByNomeStartingWithIgnoreCase(@RequestParam String nome) {
-	       
-	            List<Usuario> usuarios = this.usuarioService.findByNomeStartingWithIgnoreCase(nome);
-	            return new ResponseEntity<>(usuarios, HttpStatus.OK);
-	 }	    
-}
-
-
-

@@ -1,7 +1,7 @@
 package app.entity;
 
 
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -35,105 +35,51 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Usuario implements UserDetails{
-	
-	//private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Email(message = "O Email deve ser valido")
-	private String email;
-	@Column(name = "username", unique = true)
-	private String username;
+public class Usuario{
+	  @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
 
-	@Column(name = "connected", nullable = false)
-	
-	
-	private Boolean connected = false;
-	private String password;
-	private String role;
+	    @Email
+	    private String email;
 
+	    @Column(unique = true)
+	    private String username;
 
-    @NotBlank(message = "O nome do usuario eh obrgatorio")
-    @Pattern(regexp = "^(\\S+\\s+\\S+.*)$", message = "O nome deve conter pelo menos nome e sobrenome separados por espaço.")
-    private String nome;
+	    @JsonIgnore
+	    private String password;
+	    private String role;
+	    private Boolean connected = false;
 
-    private String telefone;
+	    @NotBlank
+	    private String nome;
 
-    @CPF(message = "O CPF deve ser valido")
-    @NotBlank
-    private String cpf;
-   
-  
-    private String statusCadastro;
+	    private String telefone;
 
-    @JsonIgnoreProperties("usuarios")
-    @ManyToOne
-    private Cidade cidade;
+	    @CPF @NotBlank
+	    private String cpf;
 
-    @JsonIgnoreProperties("usuarios")
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Ranking ranking;
+	    @ManyToOne
+	    @JsonIgnoreProperties({"usuarios"})
+	    private Cidade cidade;
 
+	    @ManyToOne
+	    @JsonIgnoreProperties({"usuarios"})
+	    private Ranking ranking;
 
-    @JsonIgnoreProperties("usuario")
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Jogo> jogos;
+	    @JsonIgnoreProperties("usuario")
+	    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	    private List<Jogo> jogos;
 
-   
-	
-    
-    @JsonIgnore
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-	    authorities.add(new SimpleGrantedAuthority(this.role));
-	    return authorities;
-	}
- 
-    @JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioX")
-	private List<Troca> trocasComoX;
-	
-    @JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioY")
-	private List<Troca> trocasComoY;
+	    @JsonIgnore
+	    @OneToMany(mappedBy = "usuarioA")
+	    private List<Troca> trocasComoA;
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+	    @JsonIgnore
+	    @OneToMany(mappedBy = "usuarioB")
+	    private List<Troca> trocasComoB;
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
 		
-		return true;
-	}
-
-	
 
 
 

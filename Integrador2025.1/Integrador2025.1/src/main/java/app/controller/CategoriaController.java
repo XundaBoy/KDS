@@ -29,45 +29,42 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	
+	
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
-	public ResponseEntity<String> save (@RequestBody Categoria categoria){
-		
-		String mensagem = this.categoriaService.save(categoria);
-		return new ResponseEntity<>(mensagem, HttpStatus.OK);
+	public ResponseEntity<Categoria> save(@RequestBody Categoria categoria){
+		Categoria salva = categoriaService.save(categoria);
+		return ResponseEntity.status(HttpStatus.CREATED).body(salva);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update (@RequestBody Categoria categoria, @PathVariable Long id){
-			
-			String mensagem = this.categoriaService.update(categoria, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
+	public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Long id){
+		Categoria atualizada = categoriaService.update(categoria, id);
+		return ResponseEntity.ok(atualizada);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
-				
-			String mensagem = this.categoriaService.delete(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		categoriaService.delete(id);
+		return ResponseEntity.noContent().build(); // Status 204
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Categoria>>findAll(){
-		List<Categoria> categorias = categoriaService.findAll();
-		return new ResponseEntity<>(categorias, HttpStatus.OK);
+	public ResponseEntity<List<Categoria>> findAll(){
+		return ResponseEntity.ok(categoriaService.findAll());
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Categoria> getCidadeById(@PathVariable long id){
-		
-			Categoria categoria= this.categoriaService.findById(id);
-			return new ResponseEntity<>(categoria, HttpStatus.OK);
+	public ResponseEntity<Categoria> findById(@PathVariable Long id){
+		return ResponseEntity.ok(categoriaService.findById(id));
 	}
 
 }

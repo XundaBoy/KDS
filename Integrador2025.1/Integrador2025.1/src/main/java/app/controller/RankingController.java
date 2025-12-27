@@ -30,61 +30,47 @@ public class RankingController {
 	private RankingService rankingService;
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
-	public ResponseEntity<String> save (@RequestBody Ranking ranking){
-	
-			String mensagem = this.rankingService.save(ranking);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-	
+	public ResponseEntity<Ranking> save(@RequestBody Ranking ranking){
+		Ranking salvo = rankingService.save(ranking);
+		return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update (@RequestBody Ranking ranking, @PathVariable Long id){
-		
-
-			String mensagem = this.rankingService.update(ranking, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-
+	public ResponseEntity<Ranking> update(@RequestBody Ranking ranking, @PathVariable Long id){
+		Ranking atualizado = rankingService.update(ranking, id);
+		return ResponseEntity.ok(atualizado);
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
-
-			String mensagem = this.rankingService.delete(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-
-		
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		rankingService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Ranking>>findAll(){
-		List<Ranking> rankings = rankingService.findAll();
-		return new ResponseEntity<>(rankings, HttpStatus.OK);
+	public ResponseEntity<List<Ranking>> findAll(){
+		return ResponseEntity.ok(rankingService.findAll());
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Ranking> getCidadeById(@PathVariable long id){
-	
-			Ranking rankings= this.rankingService.findById(id);
-			return new ResponseEntity<>(rankings, HttpStatus.OK);
-
+	public ResponseEntity<Ranking> findById(@PathVariable Long id){
+		return ResponseEntity.ok(rankingService.findById(id));
 	}
 	
 	
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Ranking>> findByNomeStartingWithIgnoreCase(@RequestParam String nome){
-			List<Ranking> ranking = this.rankingService.findByNomeStartingWithIgnoreCase(nome);	
-			return new ResponseEntity<>(ranking, HttpStatus.OK);
-
+		return ResponseEntity.ok(rankingService.findByNomeStartingWithIgnoreCase(nome));
 	}
 	
 	

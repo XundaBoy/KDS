@@ -29,7 +29,8 @@ public class Ranking {
     @NotBlank(message = "Nome do ranking obrigatório")
  	private String nome;
     
-    @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "ranking")
     @JsonIgnoreProperties("ranking")
     private List<Usuario> usuarios;
 }

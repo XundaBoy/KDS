@@ -36,71 +36,57 @@ public class JogoController {
 		@Autowired
 		private JogoService jogoService;
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@PostMapping("/save")
-		public ResponseEntity<String> save (@RequestBody Jogo jogo){
-				String mensagem = this.jogoService.save(jogo);
-				return new ResponseEntity<>(mensagem, HttpStatus.OK);	
+		public ResponseEntity<Jogo> save(@RequestBody Jogo jogo){
+			Jogo salvo = jogoService.save(jogo);
+			return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@PutMapping("/update/{id}")
-		public ResponseEntity<String> update (@RequestBody Jogo jogo, @PathVariable Long id){
-		
-				String mensagem = this.jogoService.update(jogo, id);
-				return new ResponseEntity<>(mensagem, HttpStatus.OK);
+		public ResponseEntity<Jogo> update(@RequestBody Jogo jogo, @PathVariable Long id){
+			Jogo atualizado = jogoService.update(jogo, id);
+			return ResponseEntity.ok(atualizado);
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@DeleteMapping("/delete/{id}")
-		public ResponseEntity<String> delete (@PathVariable Long id){
-		
-				String mensagem = this.jogoService.delete(id);
-				return new ResponseEntity<>(mensagem, HttpStatus.OK);
+		public ResponseEntity<Void> delete(@PathVariable Long id){
+			jogoService.delete(id);
+			return ResponseEntity.noContent().build();
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
-		@GetMapping("/findAll/{numPaginaAtual}")
-		public ResponseEntity<Page<Jogo>> findAll(@PathVariable("numPaginaAtual") int 
-				numPaginaAtual){
-			
-				Page<Jogo> jogos = jogoService.findAll(numPaginaAtual);
-				return new ResponseEntity<>(jogos, HttpStatus.OK);
-
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
+		@GetMapping("/findAll/{pagina}")
+		public ResponseEntity<Page<Jogo>> findAll(@PathVariable int pagina){
+			return ResponseEntity.ok(jogoService.findAll(pagina));
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@GetMapping("/findAllAll")
-		public ResponseEntity<List<Jogo>>findAll(){
-			List<Jogo> jogos = jogoService.findAllAll();
-			return new ResponseEntity<>(jogos, HttpStatus.OK);
+		public ResponseEntity<List<Jogo>> findAllAll(){
+			return ResponseEntity.ok(jogoService.findAllAll());
 		}
 	
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@GetMapping("/findById/{id}")
-		public ResponseEntity<Optional<Jogo>> findById(@PathVariable Long id){
-			
-				Optional<Jogo> jogos = jogoService.findById(id);
-				return new ResponseEntity<>(jogos, HttpStatus.OK);
-		
+		public ResponseEntity<Jogo> findById(@PathVariable Long id){
+			return ResponseEntity.ok(jogoService.findById(id));
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@GetMapping("/findByNomeStartingWithIgnoreCase")
 		public ResponseEntity<List<Jogo>> findByNomeContaining(@RequestParam String nome){
-		
-				List<Jogo> jogos = jogoService.findByNomeStartingWithIgnoreCase(nome);
-				return new ResponseEntity<>(jogos, HttpStatus.OK);
-			
+			return ResponseEntity.ok(jogoService.findByNomeStartingWithIgnoreCase(nome));
 		}
 		
-		@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+		
+		@PreAuthorize("hasAnyRole('ADMIN','USER')")
 		@GetMapping("/findByConsole")
 		public ResponseEntity<List<Jogo>> findByConsole(@RequestParam Long consoleId) {
-		    Console console = new Console();
-		    console.setId(consoleId); // constrói o objeto com só o ID
-		    List<Jogo> jogos = jogoService.findByConsole(console);
-		    return new ResponseEntity<>(jogos, HttpStatus.OK);
+		    List<Jogo> jogos = jogoService.findByConsole(consoleId);
+		    return ResponseEntity.ok(jogos);
 		}
 
 		

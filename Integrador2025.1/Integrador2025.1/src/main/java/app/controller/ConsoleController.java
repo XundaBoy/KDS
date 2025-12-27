@@ -31,74 +31,52 @@ public class ConsoleController {
 	@Autowired
 	private ConsoleService consoleService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Console console){
-		
-			String mensagem = this.consoleService.save(console);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		
-	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Console console, @PathVariable Long id){
-		
-			String mensagem = this.consoleService.update(console, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		
+	public ResponseEntity<Console> save(@RequestBody Console console){
+		Console salvo = consoleService.save(console);
+		return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Console> update(@RequestBody Console console, @PathVariable Long id){
+		Console atualizado = consoleService.update(console, id);
+		return ResponseEntity.ok(atualizado);
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Console>> findAll(){
-		
-		List<Console> consoles = consoleService.findAll();
-			return new ResponseEntity<>(consoles, HttpStatus.OK);
-		
+		return ResponseEntity.ok(consoleService.findAll());
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Console> findById(@PathVariable Long id){
-	
-			Console console = new Console();
-			console = this.consoleService.findById(id);
-			return new ResponseEntity<>(console, HttpStatus.OK);
-		
+		return ResponseEntity.ok(consoleService.findById(id));
 	}
 		
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-	    try {
-	       
-	        String mensagem = consoleService.delete(id);
-	        return new ResponseEntity<>(mensagem, HttpStatus.OK);
-	    } catch (NoSuchElementException e) {
-	        
-	        return new ResponseEntity<>("Console não encontrado", HttpStatus.NOT_FOUND);
-	    } catch (Exception e) {
-	        
-	        return new ResponseEntity<>("Erro interno do servidor", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		consoleService.delete(id);
+		return ResponseEntity.noContent().build(); // 204
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Console>> findByNomeStartingWith(@RequestParam String nome){
-		
-			List<Console> consoles = this.consoleService.findByNomeStartingWith(nome);	
-			return new ResponseEntity<>(consoles, HttpStatus.OK);
-
+		return ResponseEntity.ok(consoleService.findByNomeStartingWith(nome));
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
-	@GetMapping("/findByMarcaContainingIgnoreCase")
-	public ResponseEntity<List<Console>> findByMarca(@PathVariable String marca){
-		
-			List<Console> consoles = this.consoleService.findByMarca(marca);
-			return new ResponseEntity<>(consoles, HttpStatus.OK);
 	
+	// ----------------------- BUSCAR POR MARCA -----------------------
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	@GetMapping("/findByMarcaContainingIgnoreCase")
+	public ResponseEntity<List<Console>> findByMarca(@RequestParam String marca){
+		return ResponseEntity.ok(consoleService.findByMarca(marca));
 	}
 	
 	

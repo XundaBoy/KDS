@@ -15,20 +15,22 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
-	public String save (Cidade cidade) {
-		cidadeRepository.save(cidade);
-		return "Cidade salva com sucesso!";
-	}
-	public String update (Cidade cidade, Long id) {
-		cidade.setId(id);
-		this.cidadeRepository.save(cidade);
-		return "Cidade atualizado com sucesso";
-	}
+	public Cidade save(Cidade cidade) {
+        return cidadeRepository.save(cidade);
+    }
 	
-	public String delete(Long id) {
-		cidadeRepository.deleteById(id);
-		return"Cidade deletada com sucesso!";
-	}
+	public Cidade update(Cidade cidade, Long id) {
+        Cidade existente = findById(id);
+        existente.setNome(cidade.getNome());
+        return cidadeRepository.save(existente);
+    }
+	
+	  public void delete(Long id) {
+	        if(!cidadeRepository.existsById(id)){
+	            throw new RuntimeException("Cidade não encontrada");
+	        }
+	        cidadeRepository.deleteById(id);
+	    }
 	
 	public List<Cidade> findAll(){
 		List<Cidade> lista = new ArrayList<>();
@@ -37,8 +39,9 @@ public class CidadeService {
 	}
 	
 	public Cidade findById(Long id) {
-		return cidadeRepository.findById(id).orElse(null);
-	}
+        return cidadeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cidade não encontrada"));
+    }
 	
 	public List<Cidade> findByNomeStartingWith(String nome){
 		return this.cidadeRepository.findByNomeStartingWithIgnoreCase(nome);

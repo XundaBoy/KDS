@@ -29,67 +29,52 @@ public class CidadeController {
 	private CidadeService cidadeService;
 	
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
-	public ResponseEntity<String> save (@RequestBody Cidade cidade){
-		
-		String mensagem = this.cidadeService.save(cidade);
-		return new ResponseEntity<>(mensagem, HttpStatus.OK);
+	public ResponseEntity<Cidade> save(@RequestBody Cidade cidade){
+		Cidade salva = cidadeService.save(cidade);
+		return ResponseEntity.status(HttpStatus.CREATED).body(salva);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update (@RequestBody Cidade cidade, @PathVariable Long id){
-			
-			String mensagem = this.cidadeService.update(cidade, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);	
+	public ResponseEntity<Cidade> update (@RequestBody Cidade cidade, @PathVariable Long id){
+		Cidade atualizada = cidadeService.update(cidade, id);
+		return ResponseEntity.ok(atualizada);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteCidade(@PathVariable Long id){
-				
-			String mensagem = this.cidadeService.delete(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		
+	public ResponseEntity<Void> deleteCidade(@PathVariable Long id){
+		cidadeService.delete(id);
+		return ResponseEntity.noContent().build(); //204
 	}
 	
 	
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Cidade>>findAll(){
-		List<Cidade> cidades = cidadeService.findAll();
-		return new ResponseEntity<>(cidades, HttpStatus.OK);
+	public ResponseEntity<List<Cidade>> findAll(){
+		return ResponseEntity.ok(cidadeService.findAll());
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Cidade> getCidadeById(@PathVariable long id){
-		
-			Cidade cidade= this.cidadeService.findById(id);
-			return new ResponseEntity<>(cidade, HttpStatus.OK);
+	public ResponseEntity<Cidade> findById(@PathVariable Long id){
+		return ResponseEntity.ok(cidadeService.findById(id));
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findByNomeStartingWithIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeStartingWith(@RequestParam String nome){
-		
-		
-			List<Cidade> cidades = this.cidadeService.findByNomeStartingWith(nome);
-		
-			return new ResponseEntity<>(cidades, HttpStatus.OK);
-			
+		return ResponseEntity.ok(cidadeService.findByNomeStartingWith(nome));
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole ('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/findByNomeIgnoreCase")
 	public ResponseEntity<List<Cidade>> findByNomeIgnoreCase(@RequestParam String nome){
-		
-			List<Cidade> cidades = this.cidadeService.findByNomeIgnoreCase(nome);
-			return new ResponseEntity<>(cidades, HttpStatus.OK);
-		
+		return ResponseEntity.ok(cidadeService.findByNomeIgnoreCase(nome));
 	}
 	
 }

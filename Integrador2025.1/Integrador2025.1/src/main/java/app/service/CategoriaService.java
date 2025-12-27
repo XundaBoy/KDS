@@ -1,5 +1,6 @@
 package app.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,20 +17,23 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public String save (Categoria categoria) {
-		categoriaRepository.save(categoria);
-		return "Categoria salva com sucesso!";
-	}
-	public String update (Categoria categoria, Long id) {
-		categoria.setId(id);
-		this.categoriaRepository.save(categoria);
-		return "Categoria atualizada com sucesso!";
-	}
+	 public Categoria save(Categoria categoria) {
+	        return categoriaRepository.save(categoria);
+	    }
+	 
+	 
+	 public Categoria update(Categoria categoria, Long id) {
+	        Categoria existente = findById(id);
+	        existente.setNome(categoria.getNome());
+	        return categoriaRepository.save(existente);
+	    }
 	
-	public String delete(Long id) {
-		categoriaRepository.deleteById(id);
-		return"Categoria deletada com sucesso!";
-	}
+	 public void delete(Long id) {
+	        if(!categoriaRepository.existsById(id)) {
+	            throw new RuntimeException("Categoria não encontrada");
+	        }
+	        categoriaRepository.deleteById(id);
+	    }
 	
 	public List<Categoria> findAll(){
 		List<Categoria> lista = new ArrayList<>();
@@ -38,6 +42,8 @@ public class CategoriaService {
 	}
 	
 	public Categoria findById(Long id) {
-		return categoriaRepository.findById(id).orElse(null);
+	    return categoriaRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 	}
+
 }
