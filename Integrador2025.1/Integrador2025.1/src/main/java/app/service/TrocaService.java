@@ -32,6 +32,10 @@ private JogoRepository jogoRepository;
 
 @Transactional
 public TrocaResponseDTO solicitarTroca(Long usuarioAId, SolicitarTrocaDTO dto) {
+	
+	if (usuarioAId.equals(dto.usuarioBId())) {
+	    throw new IllegalArgumentException("Você não pode trocar consigo mesmo.");
+	}
 
     Usuario usuarioA = usuarioRepository.findById(usuarioAId)
             .orElseThrow(() -> new IllegalArgumentException("Usuário A não encontrado"));
@@ -44,6 +48,17 @@ public TrocaResponseDTO solicitarTroca(Long usuarioAId, SolicitarTrocaDTO dto) {
 
     Jogo jogoY = jogoRepository.findById(dto.jogoYId())
             .orElseThrow(() -> new IllegalArgumentException("Jogo Y não encontrado"));
+    
+    
+    List<StatusTroca> ativos = List.of(StatusTroca.ACEITA, StatusTroca.SOLICITADA);
+
+    boolean jogosEmTroca = trocaRepository
+            .existsByJogoXOrJogoYAndStatusIn(jogoX, jogoY, ativos);
+
+    if (jogosEmTroca) {
+        throw new IllegalStateException("Um dos jogos já está em uma troca ativa.");
+    }
+    
 
     validarJogosDisponiveis(jogoX, jogoY);
 
@@ -84,8 +99,13 @@ public TrocaResponseDTO solicitarTroca(Long usuarioAId, SolicitarTrocaDTO dto) {
 
 	        Troca troca = trocaRepository.findById(trocaId)
 	                .orElseThrow(() -> new IllegalArgumentException("Troca não encontrada"));
-
+	        
 	        validarParticipante(troca, usuarioId);
+	        
+	        if (troca.getStatus() == StatusTroca.CANCELADA) {
+	        	   throw new IllegalStateException("Troca cancelada, não pode confirmar.");
+	        	}
+
 
 	        if (usuarioId.equals(troca.getUsuarioA().getId())) {
 	            troca.setConfirmadaPorUsuarioA(true);
@@ -97,9 +117,14 @@ public TrocaResponseDTO solicitarTroca(Long usuarioAId, SolicitarTrocaDTO dto) {
 	        if (troca.isConfirmadaPorUsuarioA() && troca.isConfirmadaPorUsuarioB()) {
 	            troca.setStatus(StatusTroca.CONCLUIDA);
 	            troca.setConcluidaEm(LocalDateTime.now());
+	            
+	            jogoRepository.delete(troca.getJogoX());
+		        jogoRepository.delete(troca.getJogoY());
 	        } else {
 	            troca.setStatus(StatusTroca.ACEITA);
 	        }
+	        
+	        
 
 	        return toDTO(trocaRepository.save(troca));
 	    }

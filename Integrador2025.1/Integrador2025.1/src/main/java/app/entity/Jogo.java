@@ -27,7 +27,10 @@ public class Jogo {
 
     @ManyToOne(optional = false)
     @JsonIgnoreProperties("jogos")
-    private Usuario usuario;
+    private Usuario anunciante;
+    
+    @Column(nullable = false)
+    private boolean disponivel = true;
 
     @ManyToOne(optional = false)
     @JsonIgnoreProperties({"jogos","console"})
