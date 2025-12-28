@@ -32,13 +32,13 @@ public class JogoService {
             throw new IllegalArgumentException("O valor do jogo deve ser maior ou igual a zero.");
         }
 
-        if (jogo.getAnunciante() == null || jogo.getAnunciante().getId() == null) {
+        if (jogo.getUsuario() == null || jogo.getUsuario().getId() == null) {
             throw new IllegalArgumentException("Usuário é obrigatório");
         }
 
-        Usuario usuario = usuarioRepository.findById(jogo.getAnunciante().getId())
+        Usuario usuario = usuarioRepository.findById(jogo.getUsuario().getId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        jogo.setAnunciante(usuario);
+        jogo.setUsuario(usuario);
 
         if (jogo.getConsole() == null || jogo.getConsole().getId() == null) {
             throw new IllegalArgumentException("Console é obrigatório");
