@@ -217,6 +217,20 @@ GET http://localhost:8080/api/jogo/findAllAll
 
 Se o banco Docker estiver novo, a resposta pode ser uma lista vazia (`[]`). Isso significa que a API conectou corretamente, mas ainda nao existem registros cadastrados.
 
+## Documentacao da API
+
+Com a aplicacao rodando, a documentacao interativa da API fica disponivel em:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+A especificacao OpenAPI em formato JSON fica disponivel em:
+
+```text
+http://localhost:8080/v3/api-docs
+```
+
 ### Alternativa Sem Docker
 
 Tambem e possivel rodar usando um MySQL local. Nesse caso, crie manualmente o banco:
@@ -266,6 +280,7 @@ PUT /api/troca/3/cancelar/1
 - Regras de negocio em camada de service.
 - Transacoes em fluxos de troca.
 - WebSocket para funcionalidades de chat.
+- Documentacao interativa com Swagger/OpenAPI.
 
 ## Melhorias Planejadas
 
@@ -273,7 +288,6 @@ Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 
 - Remover credenciais fixas do `application.properties`, usando variaveis de ambiente.
 - Trocar `spring.jpa.hibernate.ddl-auto=update` por migracoes com Flyway.
-- Adicionar Swagger/OpenAPI.
 - Criar testes unitarios para `TrocaService`.
 - Criar testes de integracao para os principais endpoints.
 - Configurar GitHub Actions para rodar `mvn test`.
@@ -283,4 +297,4 @@ Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 
 ## Status do Projeto
 
-Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O projeto ja possui documentacao inicial, Docker Compose para o banco MySQL e build Maven funcional. O objetivo atual e evoluir testes, Swagger/OpenAPI, CI/CD, migracoes e seguranca melhor definida.
+Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O projeto ja possui documentacao inicial, Docker Compose para o banco MySQL, Swagger/OpenAPI e build Maven funcional. O objetivo atual e evoluir testes, CI/CD, migracoes e seguranca melhor definida.
