@@ -157,35 +157,45 @@ src/main/java/app
 ### Pre-requisitos
 
 - Java 17
-- Maven
-- MySQL
+- Docker
+- Maven Wrapper incluido no projeto
 
-### Banco de Dados
+### Rodando o Banco com Docker
 
-Crie um banco MySQL chamado `integrador`:
+O projeto possui um `docker-compose.yml` para subir um MySQL 8.4 com o banco `integrador`.
 
-```sql
-CREATE DATABASE integrador;
-```
-
-Configuracao atual em `application.properties`:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/integrador
-spring.datasource.username=root
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-```
-
-### Executando a API
-
-Acesse a pasta do backend:
+Entre na pasta do backend:
 
 ```bash
 cd Integrador2025.1/Integrador2025.1
 ```
 
-Execute com Maven:
+Suba o banco:
+
+```bash
+docker compose up -d
+```
+
+O MySQL ficara disponivel em:
+
+```text
+localhost:3307
+```
+
+Configuracao atual em `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3307/integrador
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Com `spring.jpa.hibernate.ddl-auto=update`, o Hibernate cria/atualiza as tabelas automaticamente com base nas entidades da aplicacao.
+
+### Executando a API
+
+No Linux/macOS:
 
 ```bash
 ./mvnw spring-boot:run
@@ -202,6 +212,24 @@ A API sera iniciada em:
 ```text
 http://localhost:8080
 ```
+
+Para validar rapidamente:
+
+```http
+GET http://localhost:8080/api/jogo/findAllAll
+```
+
+Se o banco Docker estiver novo, a resposta pode ser uma lista vazia (`[]`). Isso significa que a API conectou corretamente, mas ainda nao existem registros cadastrados.
+
+### Alternativa Sem Docker
+
+Tambem e possivel rodar usando um MySQL local. Nesse caso, crie manualmente o banco:
+
+```sql
+CREATE DATABASE integrador;
+```
+
+Depois ajuste `spring.datasource.url`, `spring.datasource.username` e `spring.datasource.password` de acordo com o seu ambiente local.
 
 ## Exemplo de Requisicao
 
@@ -247,8 +275,7 @@ PUT /api/troca/3/cancelar/1
 
 Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 
-- Criar Docker Compose com MySQL.
-- Remover credenciais fixas do `application.properties`.
+- Remover credenciais fixas do `application.properties`, usando variaveis de ambiente.
 - Trocar `spring.jpa.hibernate.ddl-auto=update` por migracoes com Flyway.
 - Adicionar Swagger/OpenAPI.
 - Criar testes unitarios para `TrocaService`.
@@ -257,8 +284,7 @@ Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 - Revisar `SecurityConfig`, pois atualmente as requisicoes estao liberadas.
 - Implementar autenticacao/autorizacao real com JWT ou Keycloak.
 - Padronizar respostas de erro.
-- Limpar duplicidades e dependencias desnecessarias no `pom.xml`.
 
 ## Status do Projeto
 
-Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O objetivo atual e transformar o KDS em um projeto mais profissional, com documentacao, testes, Docker, CI/CD e seguranca melhor definida.
+Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O projeto ja possui documentacao inicial, Docker Compose para o banco MySQL e build Maven funcional. O objetivo atual e evoluir testes, Swagger/OpenAPI, CI/CD, migracoes e seguranca melhor definida.
