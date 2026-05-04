@@ -6,13 +6,9 @@ API backend desenvolvida em Java e Spring Boot para uma plataforma de cadastro, 
 
 O KDS simula uma plataforma em que usuarios podem cadastrar jogos, criar anuncios, visualizar itens disponiveis, conversar com outros usuarios e solicitar trocas. A principal regra de negocio esta no fluxo de trocas: um usuario solicita a troca de um jogo seu por um jogo de outro usuario, os jogos ficam indisponiveis durante o processo e a troca so e concluida quando ambos confirmam.
 
-Repositorio original: https://github.com/XundaBoy/KDS
+## Sobre o Projeto
 
-## Minha Participacao
-
-Participei do desenvolvimento do projeto em dupla, contribuindo com o backend Java/Spring, modelagem de entidades, controllers, services, repositories e regras de negocio da aplicacao.
-
-Tambem tive contato, em contexto academico, com deploy usando Docker, VMs Alpine Linux, Tomcat, Nginx e HAProxy para subir frontend e backend.
+Este repositorio contem o projeto original desenvolvido em dupla como trabalho academico. A aplicacao foi construida com backend em Java/Spring Boot e integracao com frontend, aplicando conceitos de API REST, persistencia de dados, modelagem relacional, regras de negocio e infraestrutura de execucao.
 
 ## Tecnologias
 
