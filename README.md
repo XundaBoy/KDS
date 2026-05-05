@@ -281,6 +281,30 @@ PUT /api/troca/3/cancelar/1
 - Transacoes em fluxos de troca.
 - WebSocket para funcionalidades de chat.
 - Documentacao interativa com Swagger/OpenAPI.
+- Testes unitarios com JUnit 5 e Mockito para regras do `TrocaService`.
+
+## Testes Automatizados
+
+O projeto possui testes unitarios para o fluxo principal de trocas, cobrindo cenarios como:
+
+- solicitacao de troca com sucesso;
+- bloqueio de troca consigo mesmo;
+- bloqueio de troca com jogo indisponivel;
+- bloqueio de troca quando o usuario nao e dono do jogo;
+- cancelamento de troca liberando os jogos;
+- conclusao da troca quando os dois usuarios confirmam.
+
+Para executar todos os testes:
+
+```bash
+./mvnw test
+```
+
+No Windows:
+
+```bash
+mvnw.cmd test
+```
 
 ## Melhorias Planejadas
 
@@ -288,7 +312,7 @@ Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 
 - Remover credenciais fixas do `application.properties`, usando variaveis de ambiente.
 - Trocar `spring.jpa.hibernate.ddl-auto=update` por migracoes com Flyway.
-- Criar testes unitarios para `TrocaService`.
+- Ampliar a cobertura de testes unitarios para outros services.
 - Criar testes de integracao para os principais endpoints.
 - Configurar GitHub Actions para rodar `mvn test`.
 - Revisar `SecurityConfig`, pois atualmente as requisicoes estao liberadas.
@@ -297,4 +321,4 @@ Este projeto ainda esta em evolucao. As proximas melhorias planejadas sao:
 
 ## Status do Projeto
 
-Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O projeto ja possui documentacao inicial, Docker Compose para o banco MySQL, Swagger/OpenAPI e build Maven funcional. O objetivo atual e evoluir testes, CI/CD, migracoes e seguranca melhor definida.
+Projeto academico funcional, usado como base de estudo e evolucao para portfolio backend Java. O projeto ja possui documentacao inicial, Docker Compose para o banco MySQL, Swagger/OpenAPI, testes unitarios do fluxo de trocas e build Maven funcional. O objetivo atual e evoluir cobertura de testes, CI/CD, migracoes e seguranca melhor definida.
